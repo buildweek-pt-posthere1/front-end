@@ -19,8 +19,16 @@ function App() {
         <Switch>
           <Route path="/login">This should go to the Log In Page</Route>
           <Route path="/signup">This should go to the Sign Up Page</Route>
-          <Route path="/dashboard">This should go to the Dashboard Page</Route>
-          <Route path="/">This should go to the Marketing AKA Home Page</Route>
+          <Route path="/aboutUs">This should go to the About Us Page</Route>
+          <Route path="/somethingElse">
+            This should go to the Something Else Page
+          </Route>
+          <Route path="/someOtherThing">
+            This should go to the Some Other Thing Page
+          </Route>
+          <Route exact path="/">
+            This should go to the Marketing AKA Home Page
+          </Route>
         </Switch>
       </div>
     </ThemeProvider>
