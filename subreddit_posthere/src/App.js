@@ -17,8 +17,12 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path="/login">This should go to the Log In Page</Route>
-          <Route path="/signup">This should go to the Sign Up Page</Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
           <Route path="/aboutUs">This should go to the About Us Page</Route>
           <Route path="/somethingElse">
             This should go to the Something Else Page
