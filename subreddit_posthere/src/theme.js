@@ -1,7 +1,7 @@
 const theme = {
   headerFont: "Oswald, sans-serif",
   bodyFont: "Quattrocento, serif",
-  primaryColor: "#5296dd",
+  primaryColor: "#3f51b5",
   secondaryColor: "#92bddf",
   midtoneColor: "#d7d7d7",
   accentColor: "#ff6314",
