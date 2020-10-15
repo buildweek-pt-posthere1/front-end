@@ -1,10 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const NavWrapper = styled.div``;
 
 const Nav = () => {
   return (
-    <div>
-      <p>Navigation Bar</p>
-    </div>
+    <NavWrapper>
+      <Link>Navigation Bar</Link>
+    </NavWrapper>
   );
 };
 
