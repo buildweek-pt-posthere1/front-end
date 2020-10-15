@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { Button } from "@material-ui/core";
 import styled, { css } from "styled-components";
 
 const Header = styled.div`
@@ -7,7 +8,7 @@ const Header = styled.div`
   background-color: ${(props) => props.theme.accentColor};
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   padding: 2rem;
   position: relative;
   top: 0;
@@ -21,20 +22,22 @@ const Header = styled.div`
 
 const NavWrapper = styled.div`
   display: flex;
-  height: 12vh;
   align-items: baseline;
+  justify-content: space-between;
+  width: 50vw;
 `;
 
 const LinksWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-right: 1rem;
   text-align: center;
+  width: 66%;
+  padding: 0.25rem 0;
 `;
 
 const StyledNavLink = styled(NavLink)`
-  padding: 0.5rem;
+  padding: 0.45rem;
   box-sizing: border-box;
   font-family: ${(props) => props.theme.bodyFont};
   box-sizing: border-box;
@@ -47,34 +50,14 @@ const StyledNavLink = styled(NavLink)`
   &:hover,
   &:focus {
     color: ${(props) => props.theme.highlightColor};
-    border-bottom: 5px solid ${(props) => props.theme.primaryColor};
     font-weight: 600;
   }
 `;
 
 const ButtonWrapper = styled.div`
-  /* width: 12.5%; */
+  width: 25%;
   display: flex;
   justify-content: space-between;
-`;
-
-const Button = styled.button`
-  background-color: ${(props) => props.theme.highlightColor};
-  border-radius: ${(props) => props.theme.radius};
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  font-family: ${(props) => props.theme.bodyFont};
-
-  &:hover {
-    background-color: ${(props) => props.theme.midtoneColor};
-  }
-`;
-
-const SignUpButton = styled(Button)``;
-
-const LogInButton = styled(Button)`
-  background-color: ${(props) => props.theme.primaryColor};
 `;
 
 const Nav = () => {
@@ -90,7 +73,7 @@ const Nav = () => {
 
   return (
     <Header>
-      <h1>SubReddit</h1>
+      <h1>SubReddit Predictor</h1>
       <NavWrapper>
         <LinksWrapper>
           <StyledNavLink exact to="/">
@@ -107,12 +90,12 @@ const Nav = () => {
           </StyledNavLink>
         </LinksWrapper>
         <ButtonWrapper>
-          <SignUpButton id="signUpButton" onClick={signUp}>
+          <Button variant="contained" color="default" onClick={signUp}>
             Sign Up
-          </SignUpButton>
-          <LogInButton id="logInButton" onClick={logIn}>
+          </Button>
+          <Button variant="contained" color="primary" onClick={logIn}>
             Log In
-          </LogInButton>
+          </Button>
         </ButtonWrapper>
       </NavWrapper>
     </Header>
