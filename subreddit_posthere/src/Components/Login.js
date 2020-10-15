@@ -91,7 +91,7 @@ export default function LogIn() {
                 </FormGroup>
                 <Button disabled={disable} type='submit' variant="contained" color="primary">Let's go!</Button>
             </FormControl>
-            <Box>Not a user?</Box>
+            <Box style={{margin:'10px'}}>Not a user?</Box>
             <Button variant="contained" color="primary">Signup!</Button>
             </div>
         </div>

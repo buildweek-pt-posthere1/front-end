@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "./Components/Nav";
 import "./App.css";
 import Login from './Components/Login'
+import Signup from './Components/Signup'
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <Nav />
         <h1>Subreddit Predictor</h1>
       </header>
-      <Login/>
+      <Signup/>
     </div>
   );
 }
