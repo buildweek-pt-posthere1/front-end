@@ -24,7 +24,7 @@ const NavWrapper = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  width: 50vw;
+  width: 40vw;
 `;
 
 const LinksWrapper = styled.div`
@@ -32,7 +32,7 @@ const LinksWrapper = styled.div`
   justify-content: space-between;
   align-items: baseline;
   text-align: center;
-  width: 66%;
+  width: 28vw;
   padding: 0.25rem 0;
 `;
 
@@ -55,7 +55,7 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 25%;
+  width: 11rem;
   display: flex;
   justify-content: space-between;
 `;
