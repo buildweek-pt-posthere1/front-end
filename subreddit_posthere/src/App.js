@@ -8,6 +8,7 @@ import "./App.css";
 import { Route, Switch } from "react-router";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
+import PrivateRoute from "./utils/PrivateRoute";
 
 console.log("theme", theme);
 
@@ -17,22 +18,17 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <Route path="/login">
             <Login />
           </Route>
           <Route path="/signup">
             <Signup />
           </Route>
-          <Route path="/aboutUs">This should go to the About Us Page</Route>
-          <Route path="/somethingElse">
-            This should go to the Something Else Page
-          </Route>
-          <Route path="/someOtherThing">
-            This should go to the Some Other Thing Page
-          </Route>
-          <Route exact path="/">
-            This should go to the Marketing AKA Home Page
-          </Route>
+          <Route path="/aboutUs" />
+          <Route path="/somethingElse" />
+          <Route path="/someOtherThing" />
+          <Route exact path="/" />
         </Switch>
       </div>
     </ThemeProvider>
