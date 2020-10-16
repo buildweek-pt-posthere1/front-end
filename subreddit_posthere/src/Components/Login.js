@@ -57,19 +57,19 @@ export default function LogIn(props) {
   //     axios.get("").then((response) => {});
   //   };
 
-  // const login = (e) => {
-  //   e.preventDefault();
-  //   axiosWithAuth()
-  //     .post("/login", login)
-  //     .then((res) => {
-  //       console.log("Login.js : login: login has worked", res);
-  //       localStorage.setItem("token", res.data.payload);
-  //       props.history.push("/dashboard");
-  //     });
-  // };
+  const loggingIn = (e) => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post("/login", login)
+      .then((res) => {
+        console.log("Login.js : login: login has worked", res);
+        localStorage.setItem("token", res.data.payload);
+        props.history.push("/dashboard");
+      });
+  };
 
   return (
-    <div style={container_style}>
+    <div onSubmit={loggingIn} style={container_style}>
       <div style={smallcontainer_style}>
         <img
           src="https://smirknewmedia.com/wp-content/uploads/2018/03/snoo.jpg"

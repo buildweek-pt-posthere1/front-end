@@ -9,8 +9,9 @@ import {
 import * as yup from "yup";
 import { findByLabelText } from "@testing-library/react";
 import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-export default function LogIn() {
+const SignUp = () => {
   // Styling
   const container_style = {
     display: "flex",
@@ -29,7 +30,7 @@ export default function LogIn() {
   };
   // Styling ends
 
-  const [login, setLogin] = useState({
+  const [signUp, setSignUp] = useState({
     email: "",
     password: "",
   });
@@ -42,15 +43,15 @@ export default function LogIn() {
   });
 
   useEffect(() => {
-    formSchema.isValid(login).then((valid) => {
+    formSchema.isValid(signUp).then((valid) => {
       console.log("valid?", valid);
       setDisable(!valid);
     });
-  }, [login]);
+  }, [signUp]);
 
   const handleChange = (event) => {
-    const newValue = { ...login, [event.target.name]: event.target.value };
-    setLogin(newValue);
+    const newValue = { ...signUp, [event.target.name]: event.target.value };
+    setSignUp(newValue);
   };
 
   // const onSubmit =(event) => {
@@ -62,14 +63,15 @@ export default function LogIn() {
   //         })
   // }
 
-  // const signUp = e => {
-  //     e.preventDefault;
-  //     axiosWithAuth()
-  //     .post("/register", state).then(res => {
-  //         console.log('SignUp.js : singUp: user registered', res)
-  //         local
-  //     })
-  // }
+  const newUser = (e) => {
+    e.preventDefault();
+    console.log(e);
+    axiosWithAuth()
+      .post("/register", signUp)
+      .then((res) => {
+        console.log("SignUp.js : singUp: user registered", res);
+      });
+  };
 
   return (
     <div style={container_style}>
@@ -80,44 +82,48 @@ export default function LogIn() {
         />
       </div>
       <div style={smallcontainer_style}>
-        <FormControl style={{ paddingTop: "33%" }}>
-          <FormGroup style={{ margin: "5px" }}>
-            <TextField
-              id="username"
-              name="username"
-              label="Username"
-              variant="outlined"
-              value={login.username}
-              onChange={handleChange}
-              style={{ color: "white" }}
-            />
-          </FormGroup>
-          <FormGroup style={{ margin: "5px" }}>
-            <TextField
-              type="password"
-              id="password"
-              name="password"
-              label="Password"
-              variant="outlined"
-              value={login.password}
-              onChange={handleChange}
-              style={{ color: "white" }}
-            />
-          </FormGroup>
-          <Button
-            disabled={disable}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            Welcome!
+        <form onSubmit={newUser}>
+          <FormControl style={{ paddingTop: "33%" }}>
+            <FormGroup style={{ margin: "5px" }}>
+              <TextField
+                id="username"
+                name="username"
+                label="Username"
+                variant="outlined"
+                value={signUp.username}
+                onChange={handleChange}
+                style={{ color: "white" }}
+              />
+            </FormGroup>
+            <FormGroup style={{ margin: "5px" }}>
+              <TextField
+                type="password"
+                id="password"
+                name="password"
+                label="Password"
+                variant="outlined"
+                value={signUp.password}
+                onChange={handleChange}
+                style={{ color: "white" }}
+              />
+            </FormGroup>
+            <Button
+              disabled={disable}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Welcome!
+            </Button>
+          </FormControl>
+          <Box style={{ margin: "10px" }}>Already a user?</Box>
+          <Button variant="contained" color="primary">
+            Login!
           </Button>
-        </FormControl>
-        <Box style={{ margin: "10px" }}>Already a user?</Box>
-        <Button variant="contained" color="primary">
-          Login!
-        </Button>
+        </form>
       </div>
     </div>
   );
-}
+};
+
+export default SignUp;
