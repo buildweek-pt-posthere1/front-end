@@ -7,8 +7,9 @@ import {
   Box,
 } from "@material-ui/core";
 import * as yup from "yup";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-export default function LogIn() {
+export default function LogIn(props) {
   // Styling
   const container_style = {
     display: "flex",
@@ -28,7 +29,7 @@ export default function LogIn() {
   // Styling ends
 
   const [login, setLogin] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -55,6 +56,17 @@ export default function LogIn() {
   //     event.preventDefault();
   //     axios.get("").then((response) => {});
   //   };
+
+  // const login = (e) => {
+  //   e.preventDefault();
+  //   axiosWithAuth()
+  //     .post("/login", login)
+  //     .then((res) => {
+  //       console.log("Login.js : login: login has worked", res);
+  //       localStorage.setItem("token", res.data.payload);
+  //       props.history.push("/dashboard");
+  //     });
+  // };
 
   return (
     <div style={container_style}>

@@ -10,3 +10,6 @@ export const axiosWithAuth = () => {
     baseURL: "https://buildweek-node-auth2.herokuapp.com/api",
   });
 };
+
+//and login API : Post https://buildweek-node-auth2.herokuapp.com/api/login
+//Post https://buildweek-node-auth2.herokuapp.com/api/register
