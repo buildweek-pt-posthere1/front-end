@@ -60,7 +60,7 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Nav = () => {
+const NavTwo = () => {
   let history = useHistory();
 
   const logIn = () => {
@@ -68,30 +68,25 @@ const Nav = () => {
   };
 
   const signUp = () => {
-    history.push("/signup");
+    history.push("/");
   };
 
   return (
     <Header>
       <h1>SubReddit Predictor</h1>
       <NavWrapper>
-        <LinksWrapper>
-          <StyledNavLink exact to="/">
-            Home
-          </StyledNavLink>
-          <StyledNavLink exact to="/aboutUs">
-            About Us
-          </StyledNavLink>
-          <StyledNavLink exact to="/somethingElse">
-            Something Else
-          </StyledNavLink>
-          <StyledNavLink exact to="/someOtherThing">
-            Some Other Thing
-          </StyledNavLink>
-        </LinksWrapper>
+        <LinksWrapper></LinksWrapper>
+        <ButtonWrapper>
+          <Button variant="contained" color="default" onClick={signUp}>
+            Sign Up
+          </Button>
+          <Button variant="contained" color="primary" onClick={logIn}>
+            Log In
+          </Button>
+        </ButtonWrapper>
       </NavWrapper>
     </Header>
   );
 };
 
-export default Nav;
+export default NavTwo;

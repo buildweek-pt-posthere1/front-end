@@ -19,12 +19,7 @@ function App() {
       <div className="App">
         <Switch>
           <PrivateRoute exact path="/Home" component={Home} />
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
+          <Route path="/login" component={Login} />
           <Route path="/aboutUs" />
           <Route path="/somethingElse" />
           <Route path="/someOtherThing" />

@@ -9,6 +9,7 @@ import {
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import NavTwo from "./NavTwo";
 
 const SignUp = () => {
   // Styling
@@ -30,7 +31,7 @@ const SignUp = () => {
   // Styling ends
 
   const [signUp, setSignUp] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -59,65 +60,70 @@ const SignUp = () => {
     e.preventDefault();
     console.log(e);
     axiosWithAuth()
-      .post("/register", signUp)
+      .post("https://buildweek-node-auth2.herokuapp.com/api/register", signUp)
       .then((res) => {
         console.log("SignUp.js : singUp: user registered", res);
+        localStorage.setItem("token", res.data.payload);
+        push("/login");
       });
   };
 
   return (
-    <div style={container_style}>
-      <div style={smallcontainer_style}>
-        <img
-          src="https://reddit.zendesk.com/hc/article_attachments/360062391171/Snoo_image.png"
-          style={img_style}
-        />
-      </div>
-      <div style={smallcontainer_style}>
-        <form onSubmit={newUser}>
-          <FormControl style={{ paddingTop: "33%" }}>
-            <FormGroup style={{ margin: "5px" }}>
-              <h1>Sign Up!</h1>
-              <TextField
-                id="username"
-                name="username"
-                label="Username"
-                variant="outlined"
-                value={signUp.username}
-                onChange={handleChange}
-                style={{ color: "white" }}
-              />
-            </FormGroup>
-            <FormGroup style={{ margin: "5px" }}>
-              <TextField
-                type="password"
-                id="password"
-                name="password"
-                label="Password"
-                variant="outlined"
-                value={signUp.password}
-                onChange={handleChange}
-                style={{ color: "white" }}
-              />
-            </FormGroup>
+    <div className="App">
+      <NavTwo />
+      <div style={container_style}>
+        <div style={smallcontainer_style}>
+          <img
+            src="https://reddit.zendesk.com/hc/article_attachments/360062391171/Snoo_image.png"
+            style={img_style}
+          />
+        </div>
+        <div style={smallcontainer_style}>
+          <form onSubmit={newUser}>
+            <FormControl style={{ paddingTop: "33%" }}>
+              <FormGroup style={{ margin: "5px" }}>
+                <h1>Sign Up!</h1>
+                <TextField
+                  id="username"
+                  name="username"
+                  label="Username"
+                  variant="outlined"
+                  value={signUp.username}
+                  onChange={handleChange}
+                  style={{ color: "white" }}
+                />
+              </FormGroup>
+              <FormGroup style={{ margin: "5px" }}>
+                <TextField
+                  type="password"
+                  id="password"
+                  name="password"
+                  label="Password"
+                  variant="outlined"
+                  value={signUp.password}
+                  onChange={handleChange}
+                  style={{ color: "white" }}
+                />
+              </FormGroup>
+              <Button
+                disabled={disable}
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Sign Up!
+              </Button>
+            </FormControl>
+            <Box style={{ margin: "10px" }}>Already a user?</Box>
             <Button
-              disabled={disable}
-              type="submit"
+              onClick={() => push("/login")}
               variant="contained"
               color="primary"
             >
-              Sign Up!
+              Login!
             </Button>
-          </FormControl>
-          <Box style={{ margin: "10px" }}>Already a user?</Box>
-          <Button
-            onClick={() => push("/login")}
-            variant="contained"
-            color="primary"
-          >
-            Login!
-          </Button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
