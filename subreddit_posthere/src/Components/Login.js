@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 export default function LogIn(props) {
   // Styling
@@ -35,6 +36,8 @@ export default function LogIn(props) {
 
   const [disable, setDisable] = useState(true);
 
+  const { push } = useHistory();
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Username is a required field."),
     password: yup.string().required("Password is a required field."),
@@ -51,11 +54,6 @@ export default function LogIn(props) {
     const newValue = { ...login, [event.target.name]: event.target.value };
     setLogin(newValue);
   };
-
-  //   const onSubmit = (event) => {
-  //     event.preventDefault();
-  //     axios.get("").then((response) => {});
-  //   };
 
   const loggingIn = (e) => {
     e.preventDefault();
@@ -79,6 +77,7 @@ export default function LogIn(props) {
       <div style={smallcontainer_style}>
         <FormControl style={{ paddingTop: "33%" }}>
           <FormGroup style={{ margin: "5px" }}>
+            <h1>Login</h1>
             <TextField
               id="username"
               name="username"
@@ -107,11 +106,12 @@ export default function LogIn(props) {
             variant="contained"
             color="primary"
           >
-            Let's go!
+            Log In
           </Button>
         </FormControl>
         <Box style={{ margin: "10px" }}>Not a user?</Box>
-        <Button variant="contained" color="primary">
+        <Button onClick={() => push("/")} variant="contained" color="primary">
+          {" "}
           Signup!
         </Button>
       </div>

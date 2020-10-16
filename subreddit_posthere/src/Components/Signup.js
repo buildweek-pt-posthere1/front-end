@@ -7,8 +7,7 @@ import {
   Box,
 } from "@material-ui/core";
 import * as yup from "yup";
-import { findByLabelText } from "@testing-library/react";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const SignUp = () => {
@@ -37,6 +36,8 @@ const SignUp = () => {
 
   const [disable, setDisable] = useState(true);
 
+  const { push } = useHistory();
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Username is a required field."),
     password: yup.string().required("Password is a required field."),
@@ -53,15 +54,6 @@ const SignUp = () => {
     const newValue = { ...signUp, [event.target.name]: event.target.value };
     setSignUp(newValue);
   };
-
-  // const onSubmit =(event) => {
-  //     event.preventDefault();
-  //     axios
-  //         .get('')
-  //         .then(response => {
-
-  //         })
-  // }
 
   const newUser = (e) => {
     e.preventDefault();
@@ -85,6 +77,7 @@ const SignUp = () => {
         <form onSubmit={newUser}>
           <FormControl style={{ paddingTop: "33%" }}>
             <FormGroup style={{ margin: "5px" }}>
+              <h1>Sign Up!</h1>
               <TextField
                 id="username"
                 name="username"
@@ -113,11 +106,15 @@ const SignUp = () => {
               variant="contained"
               color="primary"
             >
-              Welcome!
+              Sign Up!
             </Button>
           </FormControl>
           <Box style={{ margin: "10px" }}>Already a user?</Box>
-          <Button variant="contained" color="primary">
+          <Button
+            onClick={() => push("/login")}
+            variant="contained"
+            color="primary"
+          >
             Login!
           </Button>
         </form>
