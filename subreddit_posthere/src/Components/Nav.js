@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 
 const Header = styled.div`
   align-items: center;
-  background-color: ${(props) => props.theme.accentColor};
+  background-color: ${(props) => props.theme.secondaryColor};
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -25,6 +25,18 @@ const NavWrapper = styled.div`
   align-items: baseline;
   justify-content: space-between;
   width: 40vw;
+
+  @media (max-width: 1853px) {
+    width: 45vw;
+  }
+
+  @media (max-width: 1721px) {
+    width: 50vw;
+  }
+
+  @media (max-width: 1524px) {
+    width: 55vw;
+  }
 `;
 
 const LinksWrapper = styled.div`
@@ -34,6 +46,14 @@ const LinksWrapper = styled.div`
   text-align: center;
   width: 28vw;
   padding: 0.25rem 0;
+
+  @media (max-width: 1853px) {
+    width: 30vw;
+  }
+
+  @media (max-width: 1721px) {
+    width: 34vw;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
