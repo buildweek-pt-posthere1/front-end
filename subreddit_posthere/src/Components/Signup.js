@@ -58,16 +58,10 @@ const SignUp = (props) => {
     setSignUp(newValue);
   };
 
-  const newUser = (e) => {
+  const newUser = async (e) => {
     e.preventDefault();
-    console.log(e);
-    axiosWithAuth()
-      .post("/register", props.signUpForm)
-      .then((res) => {
-        console.log("SignUp.js : signUp: user registered", res);
-        localStorage.setItem("token", res.data.token);
-        push("/login");
-      });
+    await props.createUser(signUp);
+    push("/login");
   };
 
   return (
@@ -90,7 +84,7 @@ const SignUp = (props) => {
                   name="username"
                   label="Username"
                   variant="outlined"
-                  value={props.signUpForm.username}
+                  value={signUp.username}
                   onChange={handleChange}
                   style={{ color: "white" }}
                 />
@@ -102,7 +96,7 @@ const SignUp = (props) => {
                   name="password"
                   label="Password"
                   variant="outlined"
-                  value={props.signUpForm.password}
+                  value={signUp.password}
                   onChange={handleChange}
                   style={{ color: "white" }}
                 />
@@ -117,11 +111,7 @@ const SignUp = (props) => {
               </Button>
             </FormControl>
             <Box style={{ margin: "10px" }}>Already a user?</Box>
-            <Button
-              onClick={() => push("/login")}
-              variant="contained"
-              color="primary"
-            >
+            <Button variant="contained" color="primary">
               Login!
             </Button>
           </form>
