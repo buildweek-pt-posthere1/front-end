@@ -10,8 +10,9 @@ import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import NavTwo from "./NavTwo";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default function LogIn(props) {
+const LogIn = (props) => {
   // Styling
   const container_style = {
     display: "flex",
@@ -62,7 +63,7 @@ export default function LogIn(props) {
       .post("/login", login)
       .then((res) => {
         console.log("Login.js : login: login has worked", res);
-        localStorage.setItem("token", res.data.payload);
+        localStorage.setItem("token", res.data.token);
         props.history.push("/home");
       });
   };
@@ -70,7 +71,7 @@ export default function LogIn(props) {
   return (
     <div className="App">
       <NavTwo />
-      <div onSubmit={loggingIn} style={container_style}>
+      <div style={container_style}>
         <div style={smallcontainer_style}>
           <img
             src="https://smirknewmedia.com/wp-content/uploads/2018/03/snoo.jpg"
@@ -78,47 +79,61 @@ export default function LogIn(props) {
           />
         </div>
         <div style={smallcontainer_style}>
-          <FormControl style={{ paddingTop: "33%" }}>
-            <FormGroup style={{ margin: "5px" }}>
-              <h1>Login</h1>
-              <TextField
-                id="username"
-                name="username"
-                label="Username"
-                variant="outlined"
-                value={login.username}
-                onChange={handleChange}
-                style={{ color: "white" }}
-              />
-            </FormGroup>
-            <FormGroup style={{ margin: "5px" }}>
-              <TextField
-                type="password"
-                id="password"
-                name="password"
-                label="Password"
-                variant="outlined"
-                value={login.password}
-                onChange={handleChange}
-                style={{ color: "white" }}
-              />
-            </FormGroup>
+          <form onSubmit={loggingIn}>
+            <FormControl style={{ paddingTop: "33%" }}>
+              <FormGroup style={{ margin: "5px" }}>
+                <h1>Login</h1>
+                <TextField
+                  id="username"
+                  name="username"
+                  label="Username"
+                  variant="outlined"
+                  value={login.username}
+                  onChange={handleChange}
+                  style={{ color: "white" }}
+                />
+              </FormGroup>
+              <FormGroup style={{ margin: "5px" }}>
+                <TextField
+                  type="password"
+                  id="password"
+                  name="password"
+                  label="Password"
+                  variant="outlined"
+                  value={login.password}
+                  onChange={handleChange}
+                  style={{ color: "white" }}
+                />
+              </FormGroup>
+              <Button
+                disabled={disable}
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Log In
+              </Button>
+            </FormControl>
+            <Box style={{ margin: "10px" }}>Not a user?</Box>
             <Button
-              disabled={disable}
-              type="submit"
+              onClick={() => push("/")}
               variant="contained"
               color="primary"
             >
-              Log In
+              {" "}
+              Signup!
             </Button>
-          </FormControl>
-          <Box style={{ margin: "10px" }}>Not a user?</Box>
-          <Button onClick={() => push("/")} variant="contained" color="primary">
-            {" "}
-            Signup!
-          </Button>
+          </form>
         </div>
       </div>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    loginForm: state.loginForm,
+  };
+};
+
+export default connect(mapStateToProps, {})(LogIn);

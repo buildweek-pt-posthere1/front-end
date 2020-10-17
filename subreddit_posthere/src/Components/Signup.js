@@ -8,10 +8,12 @@ import {
 } from "@material-ui/core";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { createUser } from "../actions/subredditActions";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import NavTwo from "./NavTwo";
 
-const SignUp = () => {
+const SignUp = (props) => {
   // Styling
   const container_style = {
     display: "flex",
@@ -60,10 +62,10 @@ const SignUp = () => {
     e.preventDefault();
     console.log(e);
     axiosWithAuth()
-      .post("https://buildweek-node-auth2.herokuapp.com/api/register", signUp)
+      .post("/register", props.signUpForm)
       .then((res) => {
-        console.log("SignUp.js : singUp: user registered", res);
-        localStorage.setItem("token", res.data.payload);
+        console.log("SignUp.js : signUp: user registered", res);
+        localStorage.setItem("token", res.data.token);
         push("/login");
       });
   };
@@ -88,7 +90,7 @@ const SignUp = () => {
                   name="username"
                   label="Username"
                   variant="outlined"
-                  value={signUp.username}
+                  value={props.signUpForm.username}
                   onChange={handleChange}
                   style={{ color: "white" }}
                 />
@@ -100,7 +102,7 @@ const SignUp = () => {
                   name="password"
                   label="Password"
                   variant="outlined"
-                  value={signUp.password}
+                  value={props.signUpForm.password}
                   onChange={handleChange}
                   style={{ color: "white" }}
                 />
@@ -128,5 +130,11 @@ const SignUp = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    signUpForm: state.signUpForm,
+    error: state.error,
+  };
+};
 
-export default SignUp;
+export default connect(mapStateToProps, { createUser })(SignUp);
