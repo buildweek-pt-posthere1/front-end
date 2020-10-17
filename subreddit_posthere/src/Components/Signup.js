@@ -11,18 +11,19 @@ export default function LogIn() {
     const container_style = {
         display:"flex",
         flexDirection:'row',
-        height:'90vh',
+        height:'100%',
         
     }
     const smallcontainer_style={
         width:'50%',
+        height:'100%',
         display:'flex',
         alignItems:'center',
-        
         flexDirection:'column',
     }
     const img_style = {
-        height:'100%'
+        width: '50%',
+        height:'50%',
     }
     // Styling ends
 

@@ -23,6 +23,9 @@ function App() {
           <Route path="/signup">
             <Signup />
           </Route>
+          <Route path='/dashboard'>
+            <Dashboard/>
+          </Route>
           <Route path="/aboutUs">This should go to the About Us Page</Route>
           <Route path="/somethingElse">
             This should go to the Something Else Page
