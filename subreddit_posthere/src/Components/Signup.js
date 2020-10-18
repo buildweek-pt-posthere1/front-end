@@ -6,37 +6,18 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
+import {
+  container_style,
+  smallcontainer_style,
+  img_style,
+} from "../component_styling/syling";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { createUser } from "../actions/subredditActions";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { createUser, handle_change } from "../actions/subredditActions";
 import NavTwo from "./NavTwo";
 
 const SignUp = (props) => {
-  // Styling
-  const container_style = {
-    display: "flex",
-    flexDirection: "row",
-    height: "90vh",
-  };
-  const smallcontainer_style = {
-    width: "50%",
-    display: "flex",
-    alignItems: "center",
-
-    flexDirection: "column",
-  };
-  const img_style = {
-    height: "100%",
-  };
-  // Styling ends
-
-  const [signUp, setSignUp] = useState({
-    username: "",
-    password: "",
-  });
-
   const [disable, setDisable] = useState(true);
 
   const { push } = useHistory();
@@ -47,22 +28,11 @@ const SignUp = (props) => {
   });
 
   useEffect(() => {
-    formSchema.isValid(signUp).then((valid) => {
+    formSchema.isValid(props.signUpForm).then((valid) => {
       console.log("valid?", valid);
       setDisable(!valid);
     });
-  }, [signUp]);
-
-  const handleChange = (event) => {
-    const newValue = { ...signUp, [event.target.name]: event.target.value };
-    setSignUp(newValue);
-  };
-
-  const newUser = async (e) => {
-    e.preventDefault();
-    await props.createUser(signUp);
-    push("/login");
-  };
+  }, [props.signUpForm]);
 
   return (
     <div className="App">
@@ -75,7 +45,13 @@ const SignUp = (props) => {
           />
         </div>
         <div style={smallcontainer_style}>
-          <form onSubmit={newUser}>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              await props.createUser(props.signUpForm);
+              push("/login");
+            }}
+          >
             <FormControl style={{ paddingTop: "33%" }}>
               <FormGroup style={{ margin: "5px" }}>
                 <h1>Sign Up!</h1>
@@ -84,8 +60,8 @@ const SignUp = (props) => {
                   name="username"
                   label="Username"
                   variant="outlined"
-                  value={signUp.username}
-                  onChange={handleChange}
+                  value={props.signUpForm.username}
+                  onChange={props.handle_change}
                   style={{ color: "white" }}
                 />
               </FormGroup>
@@ -96,8 +72,8 @@ const SignUp = (props) => {
                   name="password"
                   label="Password"
                   variant="outlined"
-                  value={signUp.password}
-                  onChange={handleChange}
+                  value={props.signUpForm.password}
+                  onChange={props.handle_change}
                   style={{ color: "white" }}
                 />
               </FormGroup>
@@ -127,4 +103,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { createUser })(SignUp);
+export default connect(mapStateToProps, {
+  createUser,
+  handle_change,
+})(SignUp);

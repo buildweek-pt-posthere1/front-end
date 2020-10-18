@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Header = styled.div`
   align-items: center;
@@ -76,7 +75,7 @@ const Nav = () => {
       <h1>SubReddit Predictor</h1>
       <NavWrapper>
         <LinksWrapper>
-          <StyledNavLink exact to="/">
+          <StyledNavLink exact to="/Home">
             Home
           </StyledNavLink>
           <StyledNavLink exact to="/aboutUs">
