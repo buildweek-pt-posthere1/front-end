@@ -11,6 +11,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import NavTwo from "./NavTwo";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
+import { login, handle_change_login } from "../actions/subredditActions";
 
 const LogIn = (props) => {
   // Styling
@@ -31,11 +32,6 @@ const LogIn = (props) => {
   };
   // Styling ends
 
-  const [login, setLogin] = useState({
-    username: "",
-    password: "",
-  });
-
   const [disable, setDisable] = useState(true);
 
   const { push } = useHistory();
@@ -46,27 +42,11 @@ const LogIn = (props) => {
   });
 
   useEffect(() => {
-    formSchema.isValid(login).then((valid) => {
+    formSchema.isValid(props.loginForm).then((valid) => {
       console.log("valid?", valid);
       setDisable(!valid);
     });
-  }, [login]);
-
-  const handleChange = (event) => {
-    const newValue = { ...login, [event.target.name]: event.target.value };
-    setLogin(newValue);
-  };
-
-  const loggingIn = (e) => {
-    e.preventDefault();
-    axiosWithAuth()
-      .post("/login", login)
-      .then((res) => {
-        console.log("Login.js : login: login has worked", res);
-        localStorage.setItem("token", res.data.token);
-        props.history.push("/home");
-      });
-  };
+  }, [props.loginForm]);
 
   return (
     <div className="App">
@@ -79,7 +59,13 @@ const LogIn = (props) => {
           />
         </div>
         <div style={smallcontainer_style}>
-          <form onSubmit={loggingIn}>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              await props.login(props.loginForm);
+              push("/home");
+            }}
+          >
             <FormControl style={{ paddingTop: "33%" }}>
               <FormGroup style={{ margin: "5px" }}>
                 <h1>Login</h1>
@@ -88,8 +74,8 @@ const LogIn = (props) => {
                   name="username"
                   label="Username"
                   variant="outlined"
-                  value={login.username}
-                  onChange={handleChange}
+                  value={props.loginForm.username}
+                  onChange={props.handle_change_login}
                   style={{ color: "white" }}
                 />
               </FormGroup>
@@ -100,8 +86,8 @@ const LogIn = (props) => {
                   name="password"
                   label="Password"
                   variant="outlined"
-                  value={login.password}
-                  onChange={handleChange}
+                  value={props.loginForm.password}
+                  onChange={props.handle_change_login}
                   style={{ color: "white" }}
                 />
               </FormGroup>
@@ -133,7 +119,8 @@ const LogIn = (props) => {
 const mapStateToProps = (state) => {
   return {
     loginForm: state.loginForm,
+    error: state.error,
   };
 };
 
-export default connect(mapStateToProps, {})(LogIn);
+export default connect(mapStateToProps, { login, handle_change_login })(LogIn);
