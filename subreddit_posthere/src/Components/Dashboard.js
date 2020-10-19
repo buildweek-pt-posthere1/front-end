@@ -11,7 +11,7 @@ const Body = styled.div`
 
 const Dashboard = (props) => {
   const [state, setState] = useState({
-    subPosts: [{ title: "", post: "" }],
+    subPosts: [],
   });
   const [post, setPost] = useState({
     title: "",
