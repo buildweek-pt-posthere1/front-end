@@ -63,16 +63,19 @@ const Dashboard = (props) => {
           <button type="submit">Click Here to Predict</button>
         </form>
       </Body>
-      <div>
-        {state.subPosts.map((post) => {
-          return (
-            <>
-              <p>Title: {post.title}</p>
-              <p>Post: {post.post}</p>
-            </>
-          );
-        })}
-      </div>
+      <Body>
+        <h2>Prediction: This is where a prediction will display</h2>
+        <div>
+          {state.subPosts.map((post) => {
+            return (
+              <>
+                <p>Title: {post.title}</p>
+                <p>Post: {post.post}</p>
+              </>
+            );
+          })}
+        </div>
+      </Body>
     </div>
   );
 };
