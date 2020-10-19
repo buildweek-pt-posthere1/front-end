@@ -8,6 +8,9 @@ export const HANDLE_CHANGE_LOGIN = "HANDLE_CHANGE_LOGIN";
 export const LOG_IN = "LOG_IN";
 export const LOG_IN_SUCCESSFUL = "LOG_IN_SUCCESSFUL";
 export const LOG_IN_FAILED = "LOG_IN_FAILED";
+export const FETCH_PREDICTION = "FETCH_PREDICTION";
+export const FETCH_PREDICTION_SUCCESS = "FETCH_PREDICTION_SUCCESS";
+export const FETCH_PREDICTION_FAIL = "FETCH_PREDICTION_FAIL";
 
 export const createUser = (newUser) => (dispatch) => {
   dispatch({ type: ADD_NEW_USER });
@@ -19,6 +22,7 @@ export const createUser = (newUser) => (dispatch) => {
         payload: res,
       });
       console.log(res);
+      localStorage.setItem("id", res.data.id);
     })
     .catch((err) => {
       dispatch({
@@ -28,6 +32,27 @@ export const createUser = (newUser) => (dispatch) => {
     });
 };
 
+export const fetchData = () => (dispatch) => {
+  dispatch({ type: FETCH_PREDICTION });
+  axiosWithAuth()
+    .post("https://bw3-posthere.herokuapp.com/predict")
+    .then((res) => {
+      dispatch({
+        type: FETCH_PREDICTION_SUCCESS,
+        payload: {
+          input: res.data.input,
+          predict: res.data.predict,
+        },
+      });
+    })
+    .catch((err) =>
+      console.log("cannont predict", err).dispatch({
+        type: FETCH_PREDICTION_FAIL,
+        payload: "this isn't working out",
+      })
+    );
+};
+
 export const login = (credentials) => (dispatch) => {
   dispatch({ type: LOG_IN });
   axiosWithAuth()
@@ -35,6 +60,7 @@ export const login = (credentials) => (dispatch) => {
     .then((res) => {
       dispatch({ type: LOG_IN_SUCCESSFUL, payload: res });
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("id", res.data.id);
     })
     .catch((err) => {
       dispatch({
@@ -51,14 +77,3 @@ export const handle_change_signup = (e) => (dispatch) => {
 export const handle_change_login = (e) => (dispatch) => {
   dispatch({ type: HANDLE_CHANGE_LOGIN, payload: e });
 };
-
-// const loggingIn = (e) => {
-//   e.preventDefault();
-//   axiosWithAuth()
-//     .post("/login", login)
-//     .then((res) => {
-//       console.log("Login.js : login: login has worked", res);
-//       localStorage.setItem("token", res.data.token);
-//       props.history.push("/home");
-//     });
-// };

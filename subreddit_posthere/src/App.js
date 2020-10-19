@@ -20,8 +20,8 @@ function App() {
         <Switch>
           <PrivateRoute exact path="/Home" component={Home} />
           <Route path="/login" component={Login} />
-          <Route path="/aboutUs" />
-          <Route path="/somethingElse" />
+          <Route path="/Dashboard" component={Dashboard} />
+          <Route path="/About Us" />
           <Route path="/someOtherThing" />
           <Route exact path="/" component={Signup} />
         </Switch>

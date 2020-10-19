@@ -7,7 +7,6 @@ import {
   Box,
 } from "@material-ui/core";
 import * as yup from "yup";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
 import NavTwo from "./NavTwo";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";

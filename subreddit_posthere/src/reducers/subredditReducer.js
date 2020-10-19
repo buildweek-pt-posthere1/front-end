@@ -3,6 +3,9 @@ import {
   HANDLE_CHANGE_SIGNUP,
   HANDLE_CHANGE_LOGIN,
   LOG_IN,
+  FETCH_PREDICTION,
+  FETCH_PREDICTION_SUCCESS,
+  FETCH_PREDICTION_FAIL,
 } from "../actions/subredditActions";
 
 const initialState = {
@@ -13,6 +16,10 @@ const initialState = {
   loginForm: {
     username: "",
     password: "",
+  },
+  postPrediction: {
+    input: "",
+    predict: "",
   },
   is_loading_data: false,
   error: "",
@@ -46,6 +53,21 @@ export const subredditReducer = (state = initialState, action) => {
           [action.payload.target.name]: action.payload.target.value,
         },
       };
+    case FETCH_PREDICTION:
+      return {
+        ...state,
+      };
+    case FETCH_PREDICTION_SUCCESS:
+      return {
+        ...state,
+        postPrediction: action.payload,
+      };
+    case FETCH_PREDICTION_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
     default:
       return state;
   }

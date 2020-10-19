@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "@material-ui/core";
 
 const Header = styled.div`
   align-items: center;
@@ -62,12 +63,9 @@ const ButtonWrapper = styled.div`
 const Nav = () => {
   let history = useHistory();
 
-  const logIn = () => {
-    history.push("/login");
-  };
-
-  const signUp = () => {
-    history.push("/signup");
+  const logout = () => {
+    localStorage.removeItem("token");
+    history.push("/");
   };
 
   return (
@@ -81,13 +79,18 @@ const Nav = () => {
           <StyledNavLink exact to="/aboutUs">
             About Us
           </StyledNavLink>
-          <StyledNavLink exact to="/somethingElse">
-            Something Else
+          <StyledNavLink exact to="/dashboard">
+            Dashboard
           </StyledNavLink>
           <StyledNavLink exact to="/someOtherThing">
             Some Other Thing
           </StyledNavLink>
         </LinksWrapper>
+        <ButtonWrapper>
+          <Button variant="contained" color="default" onClick={logout}>
+            Logout
+          </Button>
+        </ButtonWrapper>
       </NavWrapper>
     </Header>
   );
