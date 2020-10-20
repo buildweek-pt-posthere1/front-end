@@ -2,6 +2,13 @@ import React from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
+import {
+  Header,
+  NavWrapper,
+  LinksWrapper,
+  StyledNavLink,
+  ButtonWrapper,
+} from "../component_styling/syling";
 
 const Header = styled.div`
   align-items: center;
@@ -113,12 +120,9 @@ const ButtonWrapper = styled.div`
 const Nav = () => {
   let history = useHistory();
 
-  const logIn = () => {
-    history.push("/login");
-  };
-
-  const signUp = () => {
-    history.push("/signup");
+  const logout = () => {
+    localStorage.removeItem("token");
+    history.push("/");
   };
 
   return (
@@ -133,25 +137,22 @@ const Nav = () => {
       </Link>
       <NavWrapper>
         <LinksWrapper>
-          <StyledNavLink exact to="/">
+          <StyledNavLink exact to="/Home">
             Home
           </StyledNavLink>
           <StyledNavLink exact to="/aboutUs">
             About Us
           </StyledNavLink>
-          <StyledNavLink exact to="/somethingElse">
-            Something Else
+          <StyledNavLink exact to="/dashboard">
+            Dashboard
           </StyledNavLink>
           <StyledNavLink exact to="/someOtherThing">
             Some Other Thing
           </StyledNavLink>
         </LinksWrapper>
         <ButtonWrapper>
-          <Button variant="contained" color="default" onClick={signUp}>
-            Sign Up
-          </Button>
-          <Button variant="contained" color="primary" onClick={logIn}>
-            Log In
+          <Button variant="contained" color="default" onClick={logout}>
+            Logout
           </Button>
         </ButtonWrapper>
       </NavWrapper>
