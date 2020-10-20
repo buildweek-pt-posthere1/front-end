@@ -4,6 +4,13 @@ import Nav from "./Nav";
 import { fetchData } from "../actions/subredditActions";
 import { connect } from "react-redux";
 import {Body} from '../component_styling/syling'
+import { FormControl, FormGroup, TextField,Button,Container, FormLabel, Card, CardHeader, CardContent } from "@material-ui/core";
+import SendIcon from '@material-ui/icons/Send';
+import SaveIcon from '@material-ui/icons/Save';
+import RedditIcon from "@material-ui/icons/Reddit";
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import * as yup from 'yup';
+import axios from 'axios'
 
 
 const Dashboard = (props) => {
@@ -14,6 +21,19 @@ const Dashboard = (props) => {
     title: "",
     post: "",
   });
+
+  const [disable, setDisable] = useState(true)
+    const formSchema = yup.object().shape({
+        title: yup.string().required("Title is a required field."), 
+        content: yup.string().required("Content is a required field.")
+    })
+
+    useEffect(() => {
+            formSchema.isValid(post).then(valid => {
+            console.log('valid?', valid)
+            setDisable(!valid);
+        });
+    }, [post]);
 
   console.log(state);
 
@@ -39,31 +59,54 @@ const Dashboard = (props) => {
   return (
     <div>
       <Nav />
-      <Body>
-        <h2>Predict where which subreddit your post belongs!</h2>
-
-        <form >
-          <input
-            type="text"
-            name="title"
-            placholder="title"
-            value={post.title}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="post"
-            placeholder="Your post goes here"
-            value={post.post}
-            onChange={handleChange}
-          />
-          <button type="submit" onClick={submit}> Save Post</button>
-          <button>Predict your Subreddit</button>
-        </form>
-      </Body>
-      <Body>
-        <h2>Prediction: This is where a prediction will display</h2>
-        <div>
+      
+            <Container style={{display:'flex',justifyContent:'center'}}>  
+                <FormControl >
+                    <FormLabel style={{margin:'10px', textAlign:'center', color:'black'}} >Predict where which subreddit your post belongs!</FormLabel>
+                    <FormGroup>
+                        <TextField variant='outlined' label='Title' name='title' id='title' value={post.title} onChange={handleChange} style={{margin:'10px'}}/>
+                    </FormGroup>
+                    <FormGroup >
+                        <TextField multiline rows={10} variant='outlined' label='Post' name='post' id='post' value={post.post} onChange={handleChange} style={{margin:'10px'}} size='medium'  />
+                    </FormGroup>
+                    <FormGroup >
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            endIcon={<SendIcon/>}
+                            disabled={disable}
+                            type='submit'
+                            onClick={submit}
+                            style={{margin:'5px'}}                            
+                        >
+                        Predict your Subreddit!
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            endIcon={<SaveIcon/>}
+                            style={{margin:'5px'}}  
+                            
+                            
+                        >
+                        Save Post
+                        </Button>
+                    </FormGroup>
+                </FormControl>
+            </Container>
+            <hr style={{width:'80%', marginTop:'10px'}} />
+            <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly"
+      }}
+    >
+      <Container >
+        <Card>
+          <CardHeader avatar={<RedditIcon />} title="Subreddit Prediction:" />
+          <CardContent>
+          <div>
           {state.subPosts.map((post) => {
             return (
               <>
@@ -72,8 +115,18 @@ const Dashboard = (props) => {
               </>
             );
           })}
+
         </div>
-      </Body>
+          </CardContent>
+        </Card>
+      </Container>
+      <Container style={{ borderLeft: "solid black 0.5px" }}>
+        <Card>
+        <CardHeader avatar={<BookmarkIcon />} title="Saved Posts:" />
+        <CardContent></CardContent>
+        </Card>
+      </Container>
+    </div>
     </div>
   );
 };
