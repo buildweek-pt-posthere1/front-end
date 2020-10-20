@@ -9,8 +9,6 @@ import { Route, Switch } from "react-router";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
 
-console.log("theme", theme);
-
 function App() {
   return (
     <ThemeProvider theme={theme}>

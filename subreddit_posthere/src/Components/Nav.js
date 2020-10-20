@@ -1,7 +1,7 @@
 import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Header = styled.div`
   align-items: center;
@@ -14,9 +14,28 @@ const Header = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
+
   h1 {
     font-family: ${(props) => props.theme.headerFont};
     font-size: 3rem;
+    cursor: pointer;
+
+    span {
+      color: ${(props) => props.theme.accentColor};
+
+      span {
+        color: ${(props) => props.theme.highlightColor};
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        border-top: 5px solid ${(props) => props.theme.highlightColor};
+        display: inline-block;
+        margin-right: 0.1rem;
+      }
+    }
+  }
+
+  @media (max-width: 1332px) {
+    align-items: flex-end;
   }
 `;
 
@@ -37,6 +56,16 @@ const NavWrapper = styled.div`
   @media (max-width: 1524px) {
     width: 55vw;
   }
+
+  @media (max-width: 1332px) {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+
+  &:last-child {
+    position: relative;
+    bottom: -18px;
+  }
 `;
 
 const LinksWrapper = styled.div`
@@ -54,6 +83,10 @@ const LinksWrapper = styled.div`
   @media (max-width: 1721px) {
     width: 34vw;
   }
+
+  @media (max-width: 1332px) {
+    width: 100%;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -63,12 +96,9 @@ const StyledNavLink = styled(NavLink)`
   box-sizing: border-box;
   white-space: nowrap;
 
-  &:visited {
-    color: inherit;
-  }
-
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
     color: ${(props) => props.theme.highlightColor};
     font-weight: 600;
   }
@@ -93,7 +123,14 @@ const Nav = () => {
 
   return (
     <Header>
-      <h1>SubReddit Predictor</h1>
+      <Link to="/">
+        <h1>
+          <span>
+            <span>Sub</span>Reddit
+          </span>{" "}
+          Predictor
+        </h1>
+      </Link>
       <NavWrapper>
         <LinksWrapper>
           <StyledNavLink exact to="/">
