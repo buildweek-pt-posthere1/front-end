@@ -43,9 +43,9 @@ const Dashboard = (props) => {
     <div>
       <Nav />
       <Body>
-        <h2>Predict where your post will go!!</h2>
+        <h2>Predict where which subreddit your post belongs!</h2>
 
-        <form onSubmit={submit}>
+        <form >
           <input
             type="text"
             name="title"
@@ -60,7 +60,8 @@ const Dashboard = (props) => {
             value={post.post}
             onChange={handleChange}
           />
-          <button type="submit">Click Here to Predict</button>
+          <button type="submit" onClick={submit}> Save Post</button>
+          <button>Predict your Subreddit</button>
         </form>
       </Body>
       <Body>
