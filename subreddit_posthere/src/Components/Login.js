@@ -11,26 +11,9 @@ import NavTwo from "./NavTwo";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { login, handle_change_login } from "../actions/subredditActions";
+import {container_style, smallcontainer_style, img_style} from '../component_styling/syling'
 
 const LogIn = (props) => {
-  // Styling
-  const container_style = {
-    display: "flex",
-    flexDirection: "row",
-    height: "90vh",
-  };
-  const smallcontainer_style = {
-    width: "50%",
-    display: "flex",
-    alignItems: "center",
-
-    flexDirection: "column",
-  };
-  const img_style = {
-    height: "100%",
-  };
-  // Styling ends
-
   const [disable, setDisable] = useState(true);
 
   const { push } = useHistory();

@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import styled from "styled-components";
 import { fetchData } from "../actions/subredditActions";
 import { connect } from "react-redux";
+import {Body} from '../component_styling/syling'
 
-const Body = styled.div`
-  margin-top: 5%;
-  margin-left: 30%;
-`;
 
 const Dashboard = (props) => {
   const [state, setState] = useState({
