@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { fetchData } from "../actions/subredditActions";
@@ -83,3 +84,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { fetchData })(Dashboard);
+

@@ -18,6 +18,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <Switch>
+
           <PrivateRoute exact path="/Home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/Dashboard" component={Dashboard} />

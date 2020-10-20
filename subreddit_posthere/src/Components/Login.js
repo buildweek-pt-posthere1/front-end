@@ -16,7 +16,33 @@ import {container_style, smallcontainer_style, img_style} from '../component_sty
 const LogIn = (props) => {
   const [disable, setDisable] = useState(true);
 
+
+export default function LogIn() {
+    
+    // Styling
+    const container_style = {
+        display:"flex",
+        flexDirection:'row',
+        height:'100%',
+        
+    }
+    const smallcontainer_style={
+        width:'50%',
+        height:'100%',
+        display:'flex',
+        alignItems:'center',
+        
+        flexDirection:'column',
+    }
+    const img_style = {
+        width: '85%',
+        height:'85%',
+        
+    }
+    // Styling ends
+
   const { push } = useHistory();
+
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Username is a required field."),
