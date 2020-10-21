@@ -91,6 +91,7 @@ const SignUp = (props) => {
             <Button variant="contained" color="primary">
               Login!
             </Button>
+
           </form>
         </div>
       </div>
