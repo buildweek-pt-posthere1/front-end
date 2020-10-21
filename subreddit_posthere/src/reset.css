@@ -160,6 +160,10 @@ button:focus {
   outline-offset: 0;
 }
 
+a {
+  color: unset;
+}
+
 * {
   box-sizing: border-box;
   font-size: 62.5%;

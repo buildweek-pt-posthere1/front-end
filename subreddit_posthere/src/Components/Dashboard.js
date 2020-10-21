@@ -75,7 +75,6 @@ const Dashboard = (props) => {
 
   return (
     <div>
-      <Nav />
       <Container style={{ display: "flex", justifyContent: "center" }}>
         <FormControl>
           <FormLabel

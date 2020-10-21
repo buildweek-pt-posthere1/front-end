@@ -15,13 +15,11 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { createUser, handle_change_signup } from "../actions/subredditActions";
-import NavTwo from "./NavTwo";
 
 const SignUp = (props) => {
   const [disable, setDisable] = useState(true);
- 
-  const { push } = useHistory();
 
+  const { push } = useHistory();
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Username is a required field."),
@@ -36,8 +34,7 @@ const SignUp = (props) => {
   }, [props.signUpForm]);
 
   return (
-    <div className="App">
-      <NavTwo />
+    <div>
       <div style={container_style}>
         <div style={smallcontainer_style}>
           <img
@@ -55,7 +52,7 @@ const SignUp = (props) => {
           >
             <FormControl style={{ paddingTop: "33%" }}>
               <FormGroup style={{ margin: "5px" }}>
-                <h1 style={{margin:'10px'}} >Sign Up!</h1>
+                <h1 style={{ margin: "10px" }}>Sign Up!</h1>
                 <TextField
                   id="username"
                   name="username"
@@ -91,7 +88,6 @@ const SignUp = (props) => {
             <Button variant="contained" color="primary">
               Login!
             </Button>
-
           </form>
         </div>
       </div>

@@ -7,17 +7,19 @@ import {
   Box,
 } from "@material-ui/core";
 import * as yup from "yup";
-import NavTwo from "./NavTwo";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { login, handle_change_login } from "../actions/subredditActions";
-import {container_style, smallcontainer_style, img_style} from '../component_styling/syling'
+import {
+  container_style,
+  smallcontainer_style,
+  img_style,
+} from "../component_styling/syling";
 
 const LogIn = (props) => {
   const [disable, setDisable] = useState(true);
-    
-  const { push } = useHistory();
 
+  const { push } = useHistory();
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Username is a required field."),
@@ -32,8 +34,7 @@ const LogIn = (props) => {
   }, [props.loginForm]);
 
   return (
-    <div className="App">
-      <NavTwo />
+    <div>
       <div style={container_style}>
         <div style={smallcontainer_style}>
           <img
@@ -51,7 +52,7 @@ const LogIn = (props) => {
           >
             <FormControl style={{ paddingTop: "33%" }}>
               <FormGroup style={{ margin: "5px" }}>
-                <h1 style={{margin:'10px'}} >Login</h1>
+                <h1 style={{ margin: "10px" }}>Login</h1>
                 <TextField
                   id="username"
                   name="username"

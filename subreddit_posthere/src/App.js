@@ -11,20 +11,21 @@ import theme from "./theme";
 import PrivateRoute from "./utils/PrivateRoute";
 import Home from "./Components/Home";
 
-console.log("theme", theme);
-
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+        <Nav />
         <Switch>
-
-          <PrivateRoute exact path="/Home" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/Dashboard" component={Dashboard} />
+          <Route exact path="/" component={Home} />
           <Route path="/About Us" />
-          <Route path="/someOtherThing" />
-          <Route exact path="/" component={Signup} />
+
+          {/****** If token is blank don't render this, otherwise, render it **********/}
+          <Route path="/Dashboard" component={Dashboard} />
+          {/****** If token is blank don't render this, otherwise, render it **********/}
+
+          <Route exact path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
         </Switch>
       </div>
     </ThemeProvider>
