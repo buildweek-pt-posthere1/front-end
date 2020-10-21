@@ -19,30 +19,7 @@ import NavTwo from "./NavTwo";
 
 const SignUp = (props) => {
   const [disable, setDisable] = useState(true);
-
-
-export default function LogIn() {
-    
-    // Styling
-    const container_style = {
-        display:"flex",
-        flexDirection:'row',
-        height:'100%',
-        
-    }
-    const smallcontainer_style={
-        width:'50%',
-        height:'100%',
-        display:'flex',
-        alignItems:'center',
-        flexDirection:'column',
-    }
-    const img_style = {
-        width: '50%',
-        height:'50%',
-    }
-    // Styling ends
-
+ 
   const { push } = useHistory();
 
 
@@ -78,7 +55,7 @@ export default function LogIn() {
           >
             <FormControl style={{ paddingTop: "33%" }}>
               <FormGroup style={{ margin: "5px" }}>
-                <h1>Sign Up!</h1>
+                <h1 style={{margin:'10px'}} >Sign Up!</h1>
                 <TextField
                   id="username"
                   name="username"
@@ -114,6 +91,7 @@ export default function LogIn() {
             <Button variant="contained" color="primary">
               Login!
             </Button>
+
           </form>
         </div>
       </div>
