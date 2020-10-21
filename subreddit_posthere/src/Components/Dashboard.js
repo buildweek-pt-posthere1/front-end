@@ -46,12 +46,6 @@ const Dashboard = (props) => {
     });
   }, [post]);
 
-  const handleSavedPost = (event) => {
-    const newSavedPost = [...savedPost, post ]
-    setSavedPost(newSavedPost);
-  }
-
-  console.log(state);
 
   const addPost = (title, post) => {
     const newPost = { title: state.subPosts.title, post: state.subPosts.post };
@@ -65,13 +59,13 @@ const Dashboard = (props) => {
       ...post,
       [e.target.name]: e.target.value,
     });
-    console.log(post);
   };
 
   const submit = (e) => {
     e.preventDefault();
     addPost(post.title, post.post);
   };
+
 
   return (
     <div>
@@ -112,8 +106,7 @@ const Dashboard = (props) => {
               color="primary"
               endIcon={<SendIcon />}
               disabled={disable}
-              type="submit"
-              onClick={submit}
+
               style={{ margin: "5px" }}>
               Predict your Subreddit!
             </Button>
@@ -122,8 +115,9 @@ const Dashboard = (props) => {
               color="primary"
               endIcon={<SaveIcon />}
               style={{ margin: "5px" }}
-              onClick={handleSavedPost}>
               Save Post
+              type="submit"
+              onClick={submit}>
             </Button>
           </FormGroup>
         </FormControl>
@@ -140,14 +134,7 @@ const Dashboard = (props) => {
             <CardHeader avatar={<RedditIcon />} title="Subreddit Prediction:" />
             <CardContent>
               <div>
-                {state.subPosts.map((post) => {
-                  return (
-                    <>
-                      <p>Title: {post.title}</p>
-                      <p>Post: {post.post}</p>
-                    </>
-                  );
-                })}
+              Predictions go here
               </div>
             </CardContent>
           </Card>
@@ -156,15 +143,14 @@ const Dashboard = (props) => {
           <Card>
             <CardHeader avatar={<BookmarkIcon />} title="Saved Posts:" />
             <CardContent>
-              {savedPost.length > 0 ? savedPost.map( element => {
+              {state.subPosts.map(post => {
                 return (
                   <Card style={{margin:'10px'}}>
-                  <CardHeader title={element.title} />
-                  <CardContent>{element.post}</CardContent>
+                  <CardHeader title={post.title} />
+                  <CardContent>{post.post}</CardContent>
                 </Card>
                 )
-
-              }):null}
+              })}
             </CardContent>
           </Card>
         </Container>
