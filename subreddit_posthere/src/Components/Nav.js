@@ -32,7 +32,7 @@ const Nav = () => {
         <h1>
           <span>
             <span>Sub</span>Reddit
-          </span>{" "}
+          </span>
           Predictor
         </h1>
       </Link>
@@ -44,14 +44,12 @@ const Nav = () => {
           <StyledNavLink exact to="/aboutUs">
             About Us
           </StyledNavLink>
+
           {/****** If token is blank don't render this, otherwise, render it **********/}
           <StyledNavLink exact to="/dashboard">
             Dashboard
           </StyledNavLink>
           {/****** If token is blank don't render this, otherwise, render it **********/}
-          <StyledNavLink exact to="/someOtherThing">
-            Some Other Thing
-          </StyledNavLink>
         </LinksWrapper>
         <ButtonWrapper>
           <Button variant="contained" color="default" onClick={signUp}>

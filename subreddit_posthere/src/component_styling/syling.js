@@ -37,6 +37,7 @@ export const Header = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
+  z-index: 999;
 
   h1 {
     font-family: ${(props) => props.theme.headerFont};
@@ -56,38 +57,26 @@ export const Header = styled.div`
       }
     }
   }
-
-  @media (max-width: 1332px) {
-    align-items: flex-end;
-  }
 `;
 
 export const NavWrapper = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  width: 40vw;
 
-  @media (max-width: 1853px) {
-    width: 45vw;
-  }
-
-  @media (max-width: 1721px) {
-    width: 50vw;
-  }
-
-  @media (max-width: 1524px) {
-    width: 55vw;
-  }
-
-  @media (max-width: 1332px) {
+  @media (max-width: 1025px) {
     flex-direction: column-reverse;
     align-items: flex-end;
-  }
 
-  &:last-child {
-    position: relative;
-    bottom: -18px;
+    &:last-child {
+      position: static;
+    }
+
+    a {
+      :last-of-type {
+        padding-right: 0;
+      }
+    }
   }
 `;
 
@@ -96,19 +85,10 @@ export const LinksWrapper = styled.div`
   justify-content: space-between;
   align-items: baseline;
   text-align: center;
-  width: 28vw;
-  padding: 0.25rem 0;
+  padding: 0.25rem 1rem;
 
-  @media (max-width: 1853px) {
-    width: 30vw;
-  }
-
-  @media (max-width: 1721px) {
-    width: 34vw;
-  }
-
-  @media (max-width: 1332px) {
-    width: 100%;
+  @media (max-width: 1025px) {
+    padding: 0;
   }
 `;
 
@@ -118,6 +98,11 @@ export const StyledNavLink = styled(NavLink)`
   font-family: ${(props) => props.theme.bodyFont};
   box-sizing: border-box;
   white-space: nowrap;
+  padding: 0 0.75vw;
+
+  &:last-of-type-of-type {
+    padding-right: none;
+  }
 
   &:hover,
   &:focus,
@@ -125,10 +110,14 @@ export const StyledNavLink = styled(NavLink)`
     color: ${(props) => props.theme.highlightColor};
     font-weight: 600;
   }
+
+  @media (max-width: 1025px) {
+    padding-top: 1rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
-   width: 11rem;
+  width: 11rem;
   display: flex;
   justify-content: space-between;
 `;

@@ -18,10 +18,14 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/Dashboard" component={Dashboard} />
           <Route path="/About Us" />
+
+          {/****** If token is blank don't render this, otherwise, render it **********/}
+          <Route path="/Dashboard" component={Dashboard} />
+          {/****** If token is blank don't render this, otherwise, render it **********/}
+
           <Route exact path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
         </Switch>
       </div>
     </ThemeProvider>
