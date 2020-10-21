@@ -35,7 +35,7 @@ const Dashboard = (props) => {
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Title is a required field."),
-    content: yup.string().required("Content is a required field."),
+    post: yup.string().required("Content is a required field."),
   });
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const Dashboard = (props) => {
               variant="contained"
               color="primary"
               endIcon={<SendIcon />}
-              disabled={false}
+              disabled={disable}
               type="submit"
               onClick={submit}
               style={{ margin: "5px" }}>
