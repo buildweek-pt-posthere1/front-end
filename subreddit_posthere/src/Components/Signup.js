@@ -20,31 +20,26 @@ import NavTwo from "./NavTwo";
 const SignUp = (props) => {
   const [disable, setDisable] = useState(true);
 
-
-export default function LogIn() {
-    
-    // Styling
-    const container_style = {
-        display:"flex",
-        flexDirection:'row',
-        height:'100%',
-        
-    }
-    const smallcontainer_style={
-        width:'50%',
-        height:'100%',
-        display:'flex',
-        alignItems:'center',
-        flexDirection:'column',
-    }
-    const img_style = {
-        width: '50%',
-        height:'50%',
-    }
-    // Styling ends
+  // Styling
+  const container_style = {
+    display: "flex",
+    flexDirection: "row",
+    height: "100%",
+  };
+  const smallcontainer_style = {
+    width: "50%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+  };
+  const img_style = {
+    width: "50%",
+    height: "50%",
+  };
+  // Styling ends
 
   const { push } = useHistory();
-
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Username is a required field."),
@@ -59,8 +54,7 @@ export default function LogIn() {
   }, [props.signUpForm]);
 
   return (
-    <div className="App">
-      <NavTwo />
+    <div>
       <div style={container_style}>
         <div style={smallcontainer_style}>
           <img

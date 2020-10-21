@@ -10,119 +10,20 @@ import {
   ButtonWrapper,
 } from "../component_styling/syling";
 
-const Header = styled.div`
-  align-items: center;
-  background-color: ${(props) => props.theme.secondaryColor};
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 2rem;
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100vw;
-
-  h1 {
-    font-family: ${(props) => props.theme.headerFont};
-    font-size: 3rem;
-    cursor: pointer;
-
-    span {
-      color: ${(props) => props.theme.accentColor};
-
-      span {
-        color: ${(props) => props.theme.highlightColor};
-        text-transform: uppercase;
-        font-size: 1.5rem;
-        border-top: 5px solid ${(props) => props.theme.highlightColor};
-        display: inline-block;
-        margin-right: 0.1rem;
-      }
-    }
-  }
-
-  @media (max-width: 1332px) {
-    align-items: flex-end;
-  }
-`;
-
-const NavWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  width: 40vw;
-
-  @media (max-width: 1853px) {
-    width: 45vw;
-  }
-
-  @media (max-width: 1721px) {
-    width: 50vw;
-  }
-
-  @media (max-width: 1524px) {
-    width: 55vw;
-  }
-
-  @media (max-width: 1332px) {
-    flex-direction: column-reverse;
-    align-items: flex-end;
-  }
-
-  &:last-child {
-    position: relative;
-    bottom: -18px;
-  }
-`;
-
-const LinksWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  text-align: center;
-  width: 28vw;
-  padding: 0.25rem 0;
-
-  @media (max-width: 1853px) {
-    width: 30vw;
-  }
-
-  @media (max-width: 1721px) {
-    width: 34vw;
-  }
-
-  @media (max-width: 1332px) {
-    width: 100%;
-  }
-`;
-
-const StyledNavLink = styled(NavLink)`
-  padding: 0.45rem;
-  box-sizing: border-box;
-  font-family: ${(props) => props.theme.bodyFont};
-  box-sizing: border-box;
-  white-space: nowrap;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: ${(props) => props.theme.highlightColor};
-    font-weight: 600;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  width: 11rem;
-  display: flex;
-  justify-content: space-between;
-`;
-
 const Nav = () => {
   let history = useHistory();
 
   const logout = () => {
     localStorage.removeItem("token");
     history.push("/");
+  };
+
+  const logIn = () => {
+    history.push("/login");
+  };
+
+  const signUp = () => {
+    history.push("/signup");
   };
 
   return (
@@ -137,22 +38,34 @@ const Nav = () => {
       </Link>
       <NavWrapper>
         <LinksWrapper>
-          <StyledNavLink exact to="/Home">
+          <StyledNavLink exact to="/">
             Home
           </StyledNavLink>
           <StyledNavLink exact to="/aboutUs">
             About Us
           </StyledNavLink>
+          {/****** If token is blank don't render this, otherwise, render it **********/}
           <StyledNavLink exact to="/dashboard">
             Dashboard
           </StyledNavLink>
+          {/****** If token is blank don't render this, otherwise, render it **********/}
           <StyledNavLink exact to="/someOtherThing">
             Some Other Thing
           </StyledNavLink>
         </LinksWrapper>
         <ButtonWrapper>
-          <Button variant="contained" color="default" onClick={logout}>
-            Logout
+          <Button variant="contained" color="default" onClick={signUp}>
+            Sign Up
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick /* If token is blank, invoke Log In function, otherwise invoke Log Out function */={
+              logIn
+            }
+          >
+            {/* If token is blank, say "Log In", otherwise say "Log Out" */}
+            Log In
           </Button>
         </ButtonWrapper>
       </NavWrapper>

@@ -1,8 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import {Header, NavWrapper, LinksWrapper, ButtonWrapper} from '../component_styling/syling'
-
+import {
+  Header,
+  NavWrapper,
+  LinksWrapper,
+  ButtonWrapper,
+} from "../component_styling/syling";
 
 const NavTwo = () => {
   let history = useHistory();

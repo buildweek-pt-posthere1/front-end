@@ -1,10 +1,8 @@
-
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { fetchData } from "../actions/subredditActions";
 import { connect } from "react-redux";
-import {Body} from '../component_styling/syling'
-
+import { Body } from "../component_styling/syling";
 
 const Dashboard = (props) => {
   const [state, setState] = useState({
@@ -38,11 +36,10 @@ const Dashboard = (props) => {
 
   return (
     <div>
-      <Nav />
       <Body>
         <h2>Predict where which subreddit your post belongs!</h2>
 
-        <form >
+        <form>
           <input
             type="text"
             name="title"
@@ -57,7 +54,10 @@ const Dashboard = (props) => {
             value={post.post}
             onChange={handleChange}
           />
-          <button type="submit" onClick={submit}> Save Post</button>
+          <button type="submit" onClick={submit}>
+            {" "}
+            Save Post
+          </button>
           <button>Predict your Subreddit</button>
         </form>
       </Body>
@@ -84,4 +84,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { fetchData })(Dashboard);
-

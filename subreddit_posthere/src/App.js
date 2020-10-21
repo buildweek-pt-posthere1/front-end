@@ -15,14 +15,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+        <Nav />
         <Switch>
-
-          <PrivateRoute exact path="/Home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/Dashboard" component={Dashboard} />
           <Route path="/About Us" />
-          <Route path="/someOtherThing" />
-          <Route exact path="/" component={Signup} />
+          <Route exact path="/signup" component={Signup} />
         </Switch>
       </div>
     </ThemeProvider>
