@@ -12,6 +12,8 @@ import {
 const Nav = () => {
   let history = useHistory();
 
+  console.log(history.location.pathname);
+
   const logout = () => {
     localStorage.removeItem("token");
     history.push("/");
@@ -27,7 +29,7 @@ const Nav = () => {
 
   return (
     <Header>
-      <Link to="/">
+      <Link to="/home">
         <h1>
           <span>
             <span>Sub</span>Reddit
@@ -37,7 +39,7 @@ const Nav = () => {
       </Link>
       <NavWrapper>
         <LinksWrapper>
-          <StyledNavLink exact to="/">
+          <StyledNavLink exact to="/home">
             Home
           </StyledNavLink>
           <StyledNavLink exact to="/aboutUs">
