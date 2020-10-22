@@ -87,7 +87,7 @@ console.log(props.prevPosts)
         <FormControl>
           <FormLabel
             style={{ margin: "10px", textAlign: "center", color: "black" }}>
-            Predict where which subreddit your post belongs!
+            We'll predict which subreddit your post belongs!
           </FormLabel>
           <FormGroup>
             <TextField

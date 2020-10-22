@@ -2,7 +2,7 @@ import {
   ADD_NEW_USER,
   HANDLE_CHANGE_SIGNUP,
   HANDLE_CHANGE_LOGIN,
-  LOG_IN,
+  LOG_IN, LOG_OUT,
   FETCH_PREDICTION,
   FETCH_PREDICTION_SUCCESS,
   FETCH_PREDICTION_FAIL,
@@ -23,7 +23,7 @@ const initialState = {
   userId: 0,
   postPrediction: 
     [],
-
+    isloggedIn: false,
   subRedPosts: {
     title: "",
     post: "",
@@ -44,7 +44,13 @@ export const subredditReducer = (state = initialState, action) => {
       return {
         ...state,
         is_loading_data: true,
+        isloggedIn: true, 
       };
+      case LOG_OUT: 
+      return {
+        ...state,
+        isloggedIn: false,
+      }
     case HANDLE_CHANGE_SIGNUP:
       return {
         ...state,
@@ -77,8 +83,7 @@ export const subredditReducer = (state = initialState, action) => {
       case SUBMIT_POSTS_SUCCESS:
         return {
           ...state,
-          subRedPost: {
-          
+          subRedPost: {       
             post: '',
           }
         }

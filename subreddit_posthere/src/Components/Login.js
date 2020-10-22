@@ -47,7 +47,7 @@ const LogIn = (props) => {
             onSubmit={async (e) => {
               e.preventDefault();
               await props.login(props.loginForm);
-              push("/home");
+              push("/");
             }}
           >
             <FormControl style={{ paddingTop: "33%" }}>

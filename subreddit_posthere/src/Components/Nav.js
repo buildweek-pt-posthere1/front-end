@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import { connect } from 'react-redux'
+import {logout} from '../actions/subredditActions'
 import {
   Header,
   NavWrapper,
@@ -9,13 +11,8 @@ import {
   ButtonWrapper,
 } from "../component_styling/syling";
 
-const Nav = () => {
+const Nav = (props) => {
   let history = useHistory();
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    history.push("/");
-  };
 
   const logIn = () => {
     history.push("/login");
@@ -44,30 +41,40 @@ const Nav = () => {
             About Us
           </StyledNavLink>
 
-          {/****** If token is blank don't render this, otherwise, render it **********/}
-          <StyledNavLink exact to="/dashboard">
-            Dashboard
-          </StyledNavLink>
-          {/****** If token is blank don't render this, otherwise, render it **********/}
+          {props.isloggedIn && <StyledNavLink exact to="/dashboard">Dashboard</StyledNavLink>}
         </LinksWrapper>
         <ButtonWrapper>
+          {props.isloggedIn === false ? (
+            <>
           <Button variant="contained" color="default" onClick={signUp}>
             Sign Up
           </Button>
           <Button
             variant="contained"
             color="primary"
-            onClick /* If token is blank, invoke Log In function, otherwise invoke Log Out function */={
+            onClick={
               logIn
             }
           >
-            {/* If token is blank, say "Log In", otherwise say "Log Out" */}
             Log In
           </Button>
+          </> ) : ( false)}
+          {props.isloggedIn && 
+          <Button variant="contained" color="default" onClick={e=>{
+            e.preventDefault();
+            props.logout();
+            history.push("/login")
+          }}>Logout</Button>}
         </ButtonWrapper>
       </NavWrapper>
     </Header>
   );
 };
 
-export default Nav;
+const mapStateToProps = (state) => {
+  return {
+    isloggedIn: state.isloggedIn
+  }
+}
+export default connect(mapStateToProps, {logout})(Nav)
+

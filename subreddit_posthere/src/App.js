@@ -19,11 +19,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/About Us" />
-
-          {/****** If token is blank don't render this, otherwise, render it **********/}
           <Route path="/Dashboard" component={Dashboard} />
-          {/****** If token is blank don't render this, otherwise, render it **********/}
-
           <Route exact path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
         </Switch>

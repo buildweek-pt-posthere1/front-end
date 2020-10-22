@@ -9,6 +9,7 @@ export const SUB_REDDIT_HANDLE_CHANGE ="SUB_REDDIT_HANDLE_CHANGE"
 export const LOG_IN = "LOG_IN";
 export const LOG_IN_SUCCESSFUL = "LOG_IN_SUCCESSFUL";
 export const LOG_IN_FAILED = "LOG_IN_FAILED";
+export const LOG_OUT = "LOG_OUT"
 export const FETCH_PREDICTION = "FETCH_PREDICTION";
 export const FETCH_PREDICTION_SUCCESS = "FETCH_PREDICTION_SUCCESS";
 export const FETCH_PREDICTION_FAIL = "FETCH_PREDICTION_FAIL";
@@ -110,4 +111,10 @@ export const handle_change_login = (e) => (dispatch) => {
 
 export const handle_change_subRedditPost = e => dispatch => {
   dispatch({type: SUB_REDDIT_HANDLE_CHANGE, payload: e})
+}
+
+export const logout = e => dispatch => {
+  dispatch({type: LOG_OUT});
+  localStorage.removeItem('token')
+  
 }
