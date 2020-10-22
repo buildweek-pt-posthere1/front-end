@@ -6,6 +6,9 @@ import {
   FETCH_PREDICTION,
   FETCH_PREDICTION_SUCCESS,
   FETCH_PREDICTION_FAIL,
+  SUB_REDDIT_HANDLE_CHANGE,
+  SUBMIT_POSTS_SUCCESS,
+  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS
 } from "../actions/subredditActions";
 
 const initialState = {
@@ -17,10 +20,15 @@ const initialState = {
     username: "",
     password: "",
   },
-  postPrediction: {
-    input: "",
-    predict: "",
+  userId: 0,
+  postPrediction: 
+    [],
+
+  subRedPosts: {
+    title: "",
+    post: "",
   },
+  prevPosts: [],
   is_loading_data: false,
   error: "",
 };
@@ -53,14 +61,46 @@ export const subredditReducer = (state = initialState, action) => {
           [action.payload.target.name]: action.payload.target.value,
         },
       };
-    case FETCH_PREDICTION:
+      case SUB_REDDIT_HANDLE_CHANGE: 
       return {
         ...state,
+        subRedPosts: {
+          ...state.subRedPosts,
+          [action.payload.target.name]: action.payload.target.value
+        }
+      }
+      case SUBMIT_POSTS: {
+        return{
+          ...state,
+        }
+      }
+      case SUBMIT_POSTS_SUCCESS:
+        return {
+          ...state,
+          subRedPost: {
+          
+            post: '',
+          }
+        }
+    case FETCH_POSTS: 
+        return{
+          ...state,
+          error: action.payload
+        }
+    case FETCH_POSTS_SUCCESS: 
+        return{ 
+          ...state,
+          prevPosts: [...state.prevPosts, action.payload.data]
+        }
+    case FETCH_PREDICTION:
+      return {
+        ...state
+        
       };
     case FETCH_PREDICTION_SUCCESS:
       return {
-        ...state,
-        postPrediction: action.payload,
+        ...state, 
+        postPrediction : [action.payload]
       };
     case FETCH_PREDICTION_FAIL:
       return {

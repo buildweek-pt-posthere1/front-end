@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import { fetchData } from "../actions/subredditActions";
+import { fetchPost, fetchData, submitPost, handle_change_subRedditPost } from "../actions/subredditActions";
 import { connect } from "react-redux";
 import { Body } from "../component_styling/syling";
 import {
@@ -39,33 +39,47 @@ const Dashboard = (props) => {
   });
 
   useEffect(() => {
-    formSchema.isValid(post).then((valid) => {
-      console.log("valid?", valid);
+    formSchema.isValid(props.subRedPosts).then((valid) => {
       setDisable(!valid);
-      console.log(disable);
     });
-  }, [post]);
+  }, [props.subRedPosts]);
+
+  const fetchPredict = (posts) => {
+    axios.post('http://production-dev3.us-east-1.elasticbeanstalk.com/predict', posts).then(res => console.log(res.data))
+  }
 
 
-  const addPost = (title, post) => {
-    const newPost = { title: state.subPosts.title, post: state.subPosts.post };
-    setState({
-      subPosts: [...state.subPosts, { title: title, post: post }],
-    });
-  };
+  // const addPost = (title, post) => {
+  //   const newPost = { title: state.subPosts.title, post: state.subPosts.post };
+  //   setState({
+  //     subPosts: [...state.subPosts, { title: title, post: post }],
+  //   });
+  // };
 
-  const handleChange = (e) => {
-    setPost({
-      ...post,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleChange = (e) => {
+  //   setPost({
+  //     ...post,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const submit = (e) => {
-    e.preventDefault();
-    addPost(post.title, post.post);
-  };
+  // const submit = (e) => {
+  //   console.log(state)
+  //   e.preventDefault();
+  //   addPost(post.title, post.post);
+  // };
 
+  // const predictionSubmit = e => {
+  //   console.log(state)
+  //   e.preventDefault();
+  //   setPost(post.post)
+  // }
+
+  useEffect(() => {
+    props.fetchPost()
+  }, [props.prevPosts])
+
+console.log(props.prevPosts)
 
   return (
     <div>
@@ -81,8 +95,8 @@ const Dashboard = (props) => {
               label="Title"
               name="title"
               id="title"
-              value={post.title}
-              onChange={handleChange}
+              value={props.subRedPosts.title}
+              onChange={props.handle_change_subRedditPost}
               style={{ margin: "10px" }}
             />
           </FormGroup>
@@ -94,14 +108,18 @@ const Dashboard = (props) => {
               label="Post"
               name="post"
               id="post"
-              value={post.post}
-              onChange={handleChange}
+              value={props.subRedPosts.post}
+              onChange={props.handle_change_subRedditPost}
               style={{ margin: "10px" }}
               size="medium"
             />
           </FormGroup>
           <FormGroup>
             <Button
+            onClick={async e => {
+              e.preventDefault();
+              await props.fetchData(props.subRedPosts)
+            }}
               variant="contained"
               color="primary"
               endIcon={<SendIcon />}
@@ -117,7 +135,10 @@ const Dashboard = (props) => {
               style={{ margin: "5px" }}
               Save Post
               type="submit"
-              onClick={submit}>
+              onClick={async e => {
+                e.preventDefault();
+                await props.submitPost(props.subRedPosts)
+              }}>
             </Button>
           </FormGroup>
         </FormControl>
@@ -134,7 +155,19 @@ const Dashboard = (props) => {
             <CardHeader avatar={<RedditIcon />} title="Subreddit Prediction:" />
             <CardContent>
               <div>
-              Predictions go here
+              {props.postPrediction.map(prediction => {
+                return (
+                  <>
+                  <p>1. r/{prediction.pred_1}</p>
+                  <p>2. r/{prediction.pred_2}</p>
+                  <p>3. r/{prediction.pred_3}</p>
+                  <p>4. r/{prediction.pred_4}</p>
+                  <p>5. r/{prediction.pred_5}</p>
+                  </>
+                )
+              }
+
+              )}
               </div>
             </CardContent>
           </Card>
@@ -161,7 +194,9 @@ const Dashboard = (props) => {
 const mapStateToProps = (state) => {
   return {
     postPrediction: state.postPrediction,
+    subRedPosts: state.subRedPosts,
+    prevPosts: state.prevPosts,
   };
 };
 
-export default connect(mapStateToProps, { fetchData })(Dashboard);
+export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost })(Dashboard);
