@@ -37,7 +37,7 @@ const Nav = (props) => {
           <StyledNavLink exact to="/">
             Home
           </StyledNavLink>
-          <StyledNavLink exact to="/aboutUs">
+          <StyledNavLink exact to="/aboutus">
             About Us
           </StyledNavLink>
 

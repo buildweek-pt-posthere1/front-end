@@ -1,19 +1,40 @@
 import React from "react";
-import Nav from "../Components/Nav";
+import { useHistory } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 const Home = () => {
+  let history = useHistory();
+
+  const logIn = () => {
+    history.push("/login");
+  };
+
+  const signUp = () => {
+    history.push("/signup");
+  };
+
   return (
     {
       /* All code in this file provided by: https://github.com/PeterPyro */
     },
     (
-      <div className="wrapper">
-        <div className="center">
-          <h1>Welcome To Peter's BW Marketing Page</h1>
-          <h2>Lets build </h2>
+      <div className="container">
+        <div className="heroWrapper">
+          <div className="textWrapper">
+            <h1>Find the best place to share on Reddit</h1>
+          </div>
           <div className="buttons">
-            <button>Button1</button>
-            <button className="btn2">Button2</button>
+            <Button
+              className="btn1"
+              variant="contained"
+              color="default"
+              onClick={signUp}
+            >
+              Sign Up
+            </Button>
+            <Button variant="contained" color="primary" onClick={logIn}>
+              Log In
+            </Button>
           </div>
         </div>
       </div>
