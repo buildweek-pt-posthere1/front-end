@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import { fetchPost, fetchData, submitPost, handle_change_subRedditPost } from "../actions/subredditActions";
+import {
+  fetchPost,
+  fetchData,
+  submitPost,
+  handle_change_subRedditPost,
+} from "../actions/subredditActions";
 import { connect } from "react-redux";
 import { Body } from "../component_styling/syling";
 import {
@@ -13,7 +18,9 @@ import {
   Card,
   CardHeader,
   CardContent,
+  Typography,
 } from "@material-ui/core";
+import "fontsource-roboto";
 import SendIcon from "@material-ui/icons/Send";
 import SaveIcon from "@material-ui/icons/Save";
 import RedditIcon from "@material-ui/icons/Reddit";
@@ -29,7 +36,7 @@ const Dashboard = (props) => {
     title: "",
     post: "",
   });
-  const [savedPost, setSavedPost] = useState ([])
+  const [savedPost, setSavedPost] = useState([]);
 
   const [disable, setDisable] = useState(false);
 
@@ -45,9 +52,13 @@ const Dashboard = (props) => {
   }, [props.subRedPosts]);
 
   const fetchPredict = (posts) => {
-    axios.post('http://production-dev3.us-east-1.elasticbeanstalk.com/predict', posts).then(res => console.log(res.data))
-  }
-
+    axios
+      .post(
+        "http://production-dev3.us-east-1.elasticbeanstalk.com/predict",
+        posts
+      )
+      .then((res) => console.log(res.data));
+  };
 
   // const addPost = (title, post) => {
   //   const newPost = { title: state.subPosts.title, post: state.subPosts.post };
@@ -76,10 +87,10 @@ const Dashboard = (props) => {
   // }
 
   useEffect(() => {
-    props.fetchPost()
-  }, [props.prevPosts])
+    props.fetchPost();
+  }, [props.prevPosts]);
 
-console.log(props.prevPosts)
+  console.log(props.prevPosts);
 
   return (
     <div>
@@ -116,15 +127,14 @@ console.log(props.prevPosts)
           </FormGroup>
           <FormGroup>
             <Button
-            onClick={async e => {
-              e.preventDefault();
-              await props.fetchData(props.subRedPosts)
-            }}
+              onClick={async (e) => {
+                e.preventDefault();
+                await props.fetchData(props.subRedPosts);
+              }}
               variant="contained"
               color="primary"
               endIcon={<SendIcon />}
               disabled={disable}
-
               style={{ margin: "5px" }}>
               Predict your Subreddit!
             </Button>
@@ -133,13 +143,13 @@ console.log(props.prevPosts)
               color="primary"
               endIcon={<SaveIcon />}
               style={{ margin: "5px" }}
-              Save Post
+              Save
+              Post
               type="submit"
-              onClick={async e => {
+              onClick={async (e) => {
                 e.preventDefault();
-                await props.submitPost(props.subRedPosts)
-              }}>
-            </Button>
+                await props.submitPost(props.subRedPosts);
+              }}></Button>
           </FormGroup>
         </FormControl>
       </Container>
@@ -152,37 +162,51 @@ console.log(props.prevPosts)
         }}>
         <Container>
           <Card>
-            <CardHeader avatar={<RedditIcon />} title="Subreddit Prediction:" />
+            <CardHeader
+              avatar={<RedditIcon />}
+              title="Top 5 Subreddit Prediction:"
+            />
             <CardContent>
               <div>
-              {props.postPrediction.map(prediction => {
-                return (
-                  <>
-                  <p>1. r/{prediction.pred_1}</p>
-                  <p>2. r/{prediction.pred_2}</p>
-                  <p>3. r/{prediction.pred_3}</p>
-                  <p>4. r/{prediction.pred_4}</p>
-                  <p>5. r/{prediction.pred_5}</p>
-                  </>
-                )
-              }
-
-              )}
+                {props.postPrediction.map((prediction) => {
+                  return (
+                    <>
+                      <Typography style={{ margin: "5px" }}>
+                        1. r/{prediction.pred_1}{" "}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        2. r/{prediction.pred_2}{" "}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        3. r/{prediction.pred_3}{" "}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        4. r/{prediction.pred_4}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        5. r/{prediction.pred_5}
+                      </Typography>
+                    </>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
         </Container>
         <Container style={{ borderLeft: "solid black 0.5px" }}>
           <Card>
-            <CardHeader avatar={<BookmarkIcon />} title="Saved Posts:" />
+            <CardHeader
+              avatar={<BookmarkIcon />}
+              title="Saved Posts/Predictions:"
+            />
             <CardContent>
-              {state.subPosts.map(post => {
+              {state.subPosts.map((post) => {
                 return (
-                  <Card style={{margin:'10px'}}>
-                  <CardHeader title={post.title} />
-                  <CardContent>{post.post}</CardContent>
-                </Card>
-                )
+                  <Card style={{ margin: "10px" }}>
+                    <CardHeader title={post.title} />
+                    <CardContent>{post.post}</CardContent>
+                  </Card>
+                );
               })}
             </CardContent>
           </Card>
@@ -199,4 +223,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost })(Dashboard);
+export default connect(mapStateToProps, {
+  fetchPost,
+  fetchData,
+  submitPost,
+  handle_change_subRedditPost,
+})(Dashboard);
