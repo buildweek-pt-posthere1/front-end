@@ -26,7 +26,7 @@ const initialState = {
     isloggedIn: false,
   subRedPosts: {
     title: "",
-    post: "",
+    text: "",
   },
   prevPosts: [],
   is_loading_data: false,
@@ -80,19 +80,20 @@ export const subredditReducer = (state = initialState, action) => {
         ...state,
         subRedPosts: {
           title: "",
-          post: ""
+          text: ""
         }
       }
       case SUBMIT_POSTS: {
         return{
           ...state,
+          subRedPosts: {title: "", text: ""}
         }
       }
       case SUBMIT_POSTS_SUCCESS:
         return {
           ...state,
           subRedPost: {       
-            post: '',
+            text: '',
           }
         }
     case FETCH_POSTS: 
@@ -103,7 +104,7 @@ export const subredditReducer = (state = initialState, action) => {
     case FETCH_POSTS_SUCCESS: 
         return{ 
           ...state,
-          prevPosts: [...state.prevPosts, action.payload.data]
+          prevPosts: [action.payload]
         }
     case FETCH_PREDICTION:
       return {

@@ -38,48 +38,18 @@ const Dashboard = (props) => {
     post: yup.string().required("Content is a required field."),
   });
 
-  useEffect(() => {
-    formSchema.isValid(props.subRedPosts).then((valid) => {
-      setDisable(!valid);
-    });
-  }, [props.subRedPosts]);
-
-  const fetchPredict = (posts) => {
-    axios.post('http://production-dev3.us-east-1.elasticbeanstalk.com/predict', posts).then(res => console.log(res.data))
-  }
-
-
-  // const addPost = (title, post) => {
-  //   const newPost = { title: state.subPosts.title, post: state.subPosts.post };
-  //   setState({
-  //     subPosts: [...state.subPosts, { title: title, post: post }],
+  // useEffect(() => {
+  //   formSchema.isValid(props.subRedPosts).then((valid) => {
+  //     setDisable(!valid);
   //   });
-  // };
+  // }, [props.subRedPosts]);
 
-  // const handleChange = (e) => {
-  //   setPost({
-  //     ...post,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const submit = (e) => {
-  //   console.log(state)
-  //   e.preventDefault();
-  //   addPost(post.title, post.post);
-  // };
-
-  // const predictionSubmit = e => {
-  //   console.log(state)
-  //   e.preventDefault();
-  //   setPost(post.post)
-  // }
 
   useEffect(() => {
-    props.fetchPost()
-  }, [props.prevPosts])
+    props.fetchPost(props.subRedPosts)
+  }, [])
 
-console.log(props.prevPosts)
+console.log("where info is stored", props.prevPosts)
 
   return (
     <div>
@@ -106,9 +76,10 @@ console.log(props.prevPosts)
               rows={10}
               variant="outlined"
               label="Post"
-              name="post"
-              id="post"
-              value={props.subRedPosts.post}
+              name="text"
+              name="text"
+              id="text"
+              value={props.subRedPosts.text}
               onChange={props.handle_change_subRedditPost}
               style={{ margin: "10px" }}
               size="medium"
@@ -138,6 +109,8 @@ console.log(props.prevPosts)
               onClick={async e => {
                 e.preventDefault();
                 await props.submitPost(props.subRedPosts)
+                await props.fetchPost(props.subRedPosts)
+
               }}>
             </Button>
           </FormGroup>
@@ -176,12 +149,18 @@ console.log(props.prevPosts)
           <Card>
             <CardHeader avatar={<BookmarkIcon />} title="Saved Posts:" />
             <CardContent>
-              {state.subPosts.map(post => {
+              {props.prevPosts.map(res => {
                 return (
+                  <>
+                  <p>{res.title}</p>
+                  <p>{res.text}</p>
+                  
                   <Card style={{margin:'10px'}}>
-                  <CardHeader title={post.title} />
-                  <CardContent>{post.post}</CardContent>
+                  <CardHeader title={res[1].title} />
+                  <CardContent><p>{res.text}</p></CardContent>
+                 
                 </Card>
+                </>
                 )
               })}
             </CardContent>

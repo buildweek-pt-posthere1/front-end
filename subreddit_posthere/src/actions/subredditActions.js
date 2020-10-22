@@ -43,7 +43,7 @@ export const createUser = (newUser) => (dispatch) => {
 export const fetchData = (posts) => (dispatch) => {
   dispatch({ type: FETCH_PREDICTION });
   axiosWithAuth()
-    .post("http://production-dev3.us-east-1.elasticbeanstalk.com/predict", posts)
+    .post("http://easyreach-dev.us-east-1.elasticbeanstalk.com/predict", posts)
     .then((res) => {
       dispatch({
         type: FETCH_PREDICTION_SUCCESS,
@@ -74,11 +74,11 @@ export const submitPost = (post) => (dispatch) => {
 
 
 
-export const fetchPost = () => dispatch => {
+export const fetchPost = (post) => dispatch => {
   dispatch({type: FETCH_POSTS})
-  axiosWithAuth().get("https://build-week4-backend.herokuapp.com/api/post").then(res => {
-    dispatch({action: FETCH_POSTS_SUCCESS, payload: res.data})
-    console.log(res)
+  axiosWithAuth().get("https://build-week4-backend.herokuapp.com/api/post", post).then(res => {
+    dispatch({type: FETCH_POSTS_SUCCESS, payload: res.data})
+    console.log(res.data)
   }).catch((err) => 
     console.log(err))
 } 
