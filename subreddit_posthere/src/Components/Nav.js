@@ -13,7 +13,7 @@ import {
 
 const Nav = (props) => {
   let history = useHistory();
-
+  
   const logIn = () => {
     history.push("/login");
   };
@@ -24,7 +24,7 @@ const Nav = (props) => {
 
   return (
     <Header>
-      <Link to="/">
+      <Link to="/home">
         <h1>
           <span>
             <span>Sub</span>Reddit
@@ -34,7 +34,7 @@ const Nav = (props) => {
       </Link>
       <NavWrapper>
         <LinksWrapper>
-          <StyledNavLink exact to="/">
+          <StyledNavLink exact to="/home">
             Home
           </StyledNavLink>
           <StyledNavLink exact to="/aboutUs">
