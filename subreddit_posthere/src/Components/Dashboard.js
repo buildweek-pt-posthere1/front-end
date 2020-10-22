@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import { fetchPost, fetchData, submitPost, handle_change_subRedditPost } from "../actions/subredditActions";
+import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form } from "../actions/subredditActions";
 import { connect } from "react-redux";
 import { Body } from "../component_styling/syling";
 import {
@@ -199,4 +199,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost })(Dashboard);
+export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form })(Dashboard);

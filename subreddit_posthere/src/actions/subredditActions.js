@@ -1,5 +1,4 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import axios from "axios";
 export const ADD_NEW_USER = "ADD_NEW_USER";
 export const ADD_NEW_USER_SUCCESS = "ADD_NEW_USER_SUCCESS";
 export const ADD_NEW_USER_FAIL = "ADD_NEW_USER_FAIL";
@@ -19,6 +18,7 @@ export const SUBMIT_POSTS_FAIL = "SUBMIT_POSTS_FAIL"
 export const FETCH_POSTS = "FETCH_POSTS"
 export const FETCH_POSTS_FAIL = "FETCH_POSTS_FAIL"
 export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS"
+export const CLEAR_FORM = "CLEAR FORM"
 
 export const createUser = (newUser) => (dispatch) => {
   dispatch({ type: ADD_NEW_USER });
@@ -113,8 +113,11 @@ export const handle_change_subRedditPost = e => dispatch => {
   dispatch({type: SUB_REDDIT_HANDLE_CHANGE, payload: e})
 }
 
-export const logout = e => dispatch => {
+export const clear_form = e => dispatch => {
+  dispatch ({ type: CLEAR_FORM })
+}
+
+export const logout = () => dispatch => {
   dispatch({type: LOG_OUT});
   localStorage.removeItem('token')
-  
 }

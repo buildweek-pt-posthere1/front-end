@@ -8,7 +8,7 @@ import {
   FETCH_PREDICTION_FAIL,
   SUB_REDDIT_HANDLE_CHANGE,
   SUBMIT_POSTS_SUCCESS,
-  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS
+  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS, CLEAR_FORM
 } from "../actions/subredditActions";
 
 const initialState = {
@@ -73,6 +73,14 @@ export const subredditReducer = (state = initialState, action) => {
         subRedPosts: {
           ...state.subRedPosts,
           [action.payload.target.name]: action.payload.target.value
+        }
+      }
+      case CLEAR_FORM: 
+      return{
+        ...state,
+        subRedPosts: {
+          title: "",
+          post: ""
         }
       }
       case SUBMIT_POSTS: {
