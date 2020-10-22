@@ -5,12 +5,20 @@ export const ADD_NEW_USER_SUCCESS = "ADD_NEW_USER_SUCCESS";
 export const ADD_NEW_USER_FAIL = "ADD_NEW_USER_FAIL";
 export const HANDLE_CHANGE_SIGNUP = "HANDLE_CHANGE_SIGNUP";
 export const HANDLE_CHANGE_LOGIN = "HANDLE_CHANGE_LOGIN";
+export const SUB_REDDIT_HANDLE_CHANGE ="SUB_REDDIT_HANDLE_CHANGE"
 export const LOG_IN = "LOG_IN";
 export const LOG_IN_SUCCESSFUL = "LOG_IN_SUCCESSFUL";
 export const LOG_IN_FAILED = "LOG_IN_FAILED";
+export const LOG_OUT = "LOG_OUT"
 export const FETCH_PREDICTION = "FETCH_PREDICTION";
 export const FETCH_PREDICTION_SUCCESS = "FETCH_PREDICTION_SUCCESS";
 export const FETCH_PREDICTION_FAIL = "FETCH_PREDICTION_FAIL";
+export const SUBMIT_POSTS = "SUBMIT_POSTS"
+export const SUBMIT_POSTS_SUCCESS = "SUBMIT_POSTS_SUCCESS"
+export const SUBMIT_POSTS_FAIL = "SUBMIT_POSTS_FAIL"
+export const FETCH_POSTS = "FETCH_POSTS"
+export const FETCH_POSTS_FAIL = "FETCH_POSTS_FAIL"
+export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS"
 
 export const createUser = (newUser) => (dispatch) => {
   dispatch({ type: ADD_NEW_USER });
@@ -32,18 +40,16 @@ export const createUser = (newUser) => (dispatch) => {
     });
 };
 
-export const fetchData = () => (dispatch) => {
+export const fetchData = (posts) => (dispatch) => {
   dispatch({ type: FETCH_PREDICTION });
   axiosWithAuth()
-    .post("https://bw3-posthere.herokuapp.com/predict")
+    .post("http://production-dev3.us-east-1.elasticbeanstalk.com/predict", posts)
     .then((res) => {
       dispatch({
         type: FETCH_PREDICTION_SUCCESS,
-        payload: {
-          input: res.data.input,
-          predict: res.data.predict,
-        },
+        payload: res.data,
       });
+      console.log(res)
     })
     .catch((err) =>
       console.log("cannont predict", err).dispatch({
@@ -52,6 +58,31 @@ export const fetchData = () => (dispatch) => {
       })
     );
 };
+
+export const submitPost = (post) => (dispatch) => {
+  dispatch({type: SUBMIT_POSTS})
+  axiosWithAuth().post(`https://build-week4-backend.herokuapp.com/api/post`, post).then(
+    res => {
+      dispatch({type: SUBMIT_POSTS_SUCCESS, payload: res.data})
+      console.log(res)
+    }
+  ).catch(err => {
+    console.log("cannot send post", err)
+    dispatch({ type: SUBMIT_POSTS_FAIL, payload: 'posts not sent'})
+  })
+}
+
+
+
+export const fetchPost = () => dispatch => {
+  dispatch({type: FETCH_POSTS})
+  axiosWithAuth().get("https://build-week4-backend.herokuapp.com/api/post").then(res => {
+    dispatch({action: FETCH_POSTS_SUCCESS, payload: res.data})
+    console.log(res)
+  }).catch((err) => 
+    console.log(err))
+} 
+
 
 export const login = (credentials) => (dispatch) => {
   dispatch({ type: LOG_IN });
@@ -77,3 +108,13 @@ export const handle_change_signup = (e) => (dispatch) => {
 export const handle_change_login = (e) => (dispatch) => {
   dispatch({ type: HANDLE_CHANGE_LOGIN, payload: e });
 };
+
+export const handle_change_subRedditPost = e => dispatch => {
+  dispatch({type: SUB_REDDIT_HANDLE_CHANGE, payload: e})
+}
+
+export const logout = e => dispatch => {
+  dispatch({type: LOG_OUT});
+  localStorage.removeItem('token')
+  
+}
