@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import "../index.css";
+import {useHistory} from 'react-router-dom'
 
 const Footer = () => {
+  const {push} = useHistory();
   return (
     <footer>
       <div className="widetext first hide">
@@ -46,7 +48,11 @@ const Footer = () => {
             <a href="">About us</a>
           </li>
           <li>
-            <a href="">Sign Up</a>
+            <a onClick={e => {
+              e.preventDefault();
+              push('/signup')
+
+            }}>Sign Up</a>
           </li>
           <li>
             <a href="">Log In</a>

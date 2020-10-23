@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Nav from "./Nav";
-
 import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost } from "../actions/subredditActions";
-
 import { connect } from "react-redux";
-import { Body } from "../component_styling/syling";
 import {
   FormControl,
   FormGroup,
@@ -23,12 +19,11 @@ import SaveIcon from "@material-ui/icons/Save";
 import RedditIcon from "@material-ui/icons/Reddit";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import * as yup from "yup";
-import axios from "axios";
 import { useHistory } from "react-router";
 
 const Dashboard = (props) => {
   const [disable, setDisable] = useState(false);
-  const {push} = useHistory()
+  let history = useHistory()
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Title is a required field."),
@@ -113,6 +108,7 @@ console.log("where info is stored", props.prevPosts)
               }}>
                 Save Your post
             </Button>
+
           </FormGroup>
         </FormControl>
       </Container>
@@ -162,21 +158,22 @@ console.log("where info is stored", props.prevPosts)
             <CardHeader
               avatar={<BookmarkIcon />}
               title="Saved Posts/Predictions:"
-            />
+          />
             <CardContent>
                 
             {props.prevPosts.map(res => {
           return (
             res.map(res => {
               return ( <>
+            
                 <Card style={{margin:'10px'}}>
                 <CardHeader title={res.title} />
                 <CardContent>{res.text}</CardContent>
-               <button onClick={e => {
+                <CardContent>   <Button variant="contained" color="secondary" onClick={e => {
                  e.preventDefault()
                  props.deletePost(res.id)
                }}
-               >x</button>
+               >Delete Post</Button></CardContent>
               </Card>
               </>) 
             })

@@ -1,6 +1,5 @@
 import React from "react";
 import "../About.css";
-import { Button } from "@material-ui/core";
 import Orlando from "../images/teamImages/Orlando Rivera Frontend Dev.jpg";
 import Erick from "../images/teamImages/Erick Villegaz Frontend Dev.jpg";
 import Jonathan from "../images/teamImages/Jonathan Portillo Frontend Dev.jpg";
@@ -31,49 +30,49 @@ const AboutUs = () => {
         </div>
         <div class="card">
           <img src={Jonathan} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Jonathan Portillo</h2>
             <h3>Frontend Developer</h3>
           </div>
         </div>
-        <div class="card">
+        <div className="card">
           <img src={Peter} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Peter Idehen</h2>
             <h3>Marketing</h3>
           </div>
         </div>
-        <div class="card">
+        <div className="card">
           <img src={Anthony} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Anthony J Feola</h2>
             <h3>Backend Developer</h3>
           </div>
         </div>
-        <div class="card">
+        <div className="card">
           <img src={Romeo} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Romeo Xu</h2>
             <h3>Backend Developer</h3>
           </div>
         </div>
-        <div class="card">
+        <div className="card">
           <img src={Kevin} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Kevin Liu</h2>
             <h3>Backend Developer</h3>
           </div>
         </div>
-        <div class="card">
+        <div className="card">
           <img src={Terrence} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Terrence Bosco</h2>
             <h3>Backend Developer</h3>
           </div>
         </div>
-        <div class="card">
+        <div className="card">
           <img src={Rakh} alt="" />
-          <div class="cardtext">
+          <div className="cardtext">
             <h2>Rakh Mantore</h2>
             <h3>Backend Developer</h3>
           </div>

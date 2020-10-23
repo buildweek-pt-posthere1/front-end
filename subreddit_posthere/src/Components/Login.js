@@ -51,9 +51,9 @@ const LogIn = (props) => {
         <div style={smallcontainer_style}>
           <form
             onSubmit={async (e) => {
-              await props.login(props.loginForm);
+               props.login(props.loginForm);
 
-              push("/");
+              push("/dashboard");
             }}>
             <FormControl style={{ paddingTop: "100%" }}>
               <FormGroup style={{ margin: "5px" }}>
@@ -82,7 +82,7 @@ const LogIn = (props) => {
                   style={{ color: "white" }}
                 />
               </FormGroup>
-              <Button
+              <Button 
                 disabled={disable}
                 type="submit"
                 variant="contained"

@@ -87,8 +87,8 @@ export const fetchPost = (post) => dispatch => {
 } 
 
 export const deletePost = (postId) => dispatch => {
-  dispatch({type: DELETE_POST})
-  axios.delete(`https://build-week4-backend.herokuapp.com/api/post/:${postId}`).then(res => console.log(res)).catch(err => console.log(err))
+ 
+  axiosWithAuth().delete(`https://build-week4-backend.herokuapp.com/api/post/${postId}`).then(res => console.log(res)).catch(err => console.log(err))
 }
 
 export const login = (credentials) => (dispatch) => {
