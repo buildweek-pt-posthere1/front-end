@@ -28,14 +28,14 @@ const Dashboard = (props) => {
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Title is a required field."),
-    post: yup.string().required("Content is a required field."),
+    text: yup.string().required("Content is a required field."),
   });
 
-  // useEffect(() => {
-  //   formSchema.isValid(props.subRedPosts).then((valid) => {
-  //     setDisable(!valid);
-  //   });
-  // }, [props.subRedPosts]);
+  useEffect(() => {
+    formSchema.isValid(props.subRedPosts).then((valid) => {
+      setDisable(!valid);
+    });
+  }, [props.subRedPosts]);
 
 
   useEffect(() => {
@@ -99,12 +99,14 @@ console.log("where info is stored", props.prevPosts)
               style={{ margin: "5px" }}
               Save Post
               type="submit"
+              disabled={disable}
               onClick={async e => {
                 e.preventDefault();
                 await props.submitPost(props.subRedPosts)
                 await props.fetchPost(props.subRedPosts)
 
               }}>
+                Save Your post
             </Button>
           </FormGroup>
         </FormControl>
