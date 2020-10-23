@@ -8,7 +8,7 @@ import {
   FETCH_PREDICTION_FAIL,
   SUB_REDDIT_HANDLE_CHANGE,
   SUBMIT_POSTS_SUCCESS,
-  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS, CLEAR_FORM
+  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS, CLEAR_FORM, DELETE_POST
 } from "../actions/subredditActions";
 
 const initialState = {
@@ -96,6 +96,11 @@ export const subredditReducer = (state = initialState, action) => {
             text: '',
           }
         }
+        case DELETE_POST:
+          return {
+            ...state,
+          
+          }
     case FETCH_POSTS: 
         return{
           ...state,

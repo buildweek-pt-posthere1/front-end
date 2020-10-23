@@ -11,7 +11,7 @@ const Home = () => {
           <h2>Lets build </h2>
           <div class="buttons">
             <button>Button1</button>
-            <button class="btn2">Button2</button>
+            <button className="btn2">Button2</button>
           </div>
         </div>
       </div>

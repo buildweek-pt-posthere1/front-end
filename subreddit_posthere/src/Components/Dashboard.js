@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form } from "../actions/subredditActions";
+import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost } from "../actions/subredditActions";
 import { connect } from "react-redux";
 import { Body } from "../component_styling/syling";
 import {
@@ -20,18 +20,11 @@ import RedditIcon from "@material-ui/icons/Reddit";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import * as yup from "yup";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 const Dashboard = (props) => {
-  const [state, setState] = useState({
-    subPosts: [],
-  });
-  const [post, setPost] = useState({
-    title: "",
-    post: "",
-  });
-  const [savedPost, setSavedPost] = useState ([])
-
   const [disable, setDisable] = useState(false);
+  const {push} = useHistory()
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Title is a required field."),
@@ -46,8 +39,8 @@ const Dashboard = (props) => {
 
 
   useEffect(() => {
-    props.fetchPost(props.subRedPosts)
-  }, [])
+    props.fetchPost(props.prevPosts)
+  },[])
 
 console.log("where info is stored", props.prevPosts)
 
@@ -127,7 +120,7 @@ console.log("where info is stored", props.prevPosts)
           <Card>
             <CardHeader avatar={<RedditIcon />} title="Subreddit Prediction:" />
             <CardContent>
-              <div>
+              <>
               {props.postPrediction.map(prediction => {
                 return (
                   <>
@@ -141,28 +134,31 @@ console.log("where info is stored", props.prevPosts)
               }
 
               )}
-              </div>
+              </>
             </CardContent>
           </Card>
         </Container>
+        
         <Container style={{ borderLeft: "solid black 0.5px" }}>
           <Card>
             <CardHeader avatar={<BookmarkIcon />} title="Saved Posts:" />
             <CardContent>
-              {props.prevPosts.map(res => {
-                return (
-                  <>
-                  <p>{res.title}</p>
-                  <p>{res.text}</p>
-                  
-                  <Card style={{margin:'10px'}}>
-                  <CardHeader title={res[1].title} />
-                  <CardContent><p>{res.text}</p></CardContent>
-                 
-                </Card>
-                </>
-                )
-              })}
+            {props.prevPosts.map(res => {
+          return (
+            res.map(res => {
+              return ( <>
+                <Card style={{margin:'10px'}}>
+                <CardHeader title={res.title} />
+                <CardContent>{res.text}</CardContent>
+               <button onClick={e => {
+                 e.preventDefault()
+                 props.deletePost(res.id)
+               }}
+               >x</button>
+              </Card>
+              </>) 
+            })
+)})}
             </CardContent>
           </Card>
         </Container>
@@ -178,4 +174,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form })(Dashboard);
+export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost })(Dashboard);
