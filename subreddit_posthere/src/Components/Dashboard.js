@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
+
 import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost } from "../actions/subredditActions";
+
 import { connect } from "react-redux";
 import { Body } from "../component_styling/syling";
 import {
@@ -13,7 +15,9 @@ import {
   Card,
   CardHeader,
   CardContent,
+  Typography,
 } from "@material-ui/core";
+import "fontsource-roboto";
 import SendIcon from "@material-ui/icons/Send";
 import SaveIcon from "@material-ui/icons/Save";
 import RedditIcon from "@material-ui/icons/Reddit";
@@ -43,6 +47,7 @@ const Dashboard = (props) => {
   },[])
 
 console.log("where info is stored", props.prevPosts)
+
 
   return (
     <div>
@@ -80,15 +85,14 @@ console.log("where info is stored", props.prevPosts)
           </FormGroup>
           <FormGroup>
             <Button
-            onClick={async e => {
-              e.preventDefault();
-              await props.fetchData(props.subRedPosts)
-            }}
+              onClick={async (e) => {
+                e.preventDefault();
+                await props.fetchData(props.subRedPosts);
+              }}
               variant="contained"
               color="primary"
               endIcon={<SendIcon />}
               disabled={disable}
-
               style={{ margin: "5px" }}>
               Predict your Subreddit!
             </Button>
@@ -97,7 +101,8 @@ console.log("where info is stored", props.prevPosts)
               color="primary"
               endIcon={<SaveIcon />}
               style={{ margin: "5px" }}
-              Save Post
+              Save
+              Post
               type="submit"
               disabled={disable}
               onClick={async e => {
@@ -120,31 +125,46 @@ console.log("where info is stored", props.prevPosts)
         }}>
         <Container>
           <Card>
-            <CardHeader avatar={<RedditIcon />} title="Subreddit Prediction:" />
+            <CardHeader
+              avatar={<RedditIcon />}
+              title="Top 5 Subreddit Prediction:"
+            />
             <CardContent>
-              <>
-              {props.postPrediction.map(prediction => {
-                return (
-                  <>
-                  <p>1. r/{prediction.pred_1}</p>
-                  <p>2. r/{prediction.pred_2}</p>
-                  <p>3. r/{prediction.pred_3}</p>
-                  <p>4. r/{prediction.pred_4}</p>
-                  <p>5. r/{prediction.pred_5}</p>
-                  </>
-                )
-              }
-
-              )}
-              </>
+              <div>
+                {props.postPrediction.map((prediction) => {
+                  return (
+                    <>
+                      <Typography style={{ margin: "5px" }}>
+                        1. r/{prediction.pred_1}{" "}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        2. r/{prediction.pred_2}{" "}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        3. r/{prediction.pred_3}{" "}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        4. r/{prediction.pred_4}
+                      </Typography>
+                      <Typography style={{ margin: "5px" }}>
+                        5. r/{prediction.pred_5}
+                      </Typography>
+                    </>
+                  );
+                })}
+              </div>
             </CardContent>
           </Card>
         </Container>
         
         <Container style={{ borderLeft: "solid black 0.5px" }}>
           <Card>
-            <CardHeader avatar={<BookmarkIcon />} title="Saved Posts:" />
+            <CardHeader
+              avatar={<BookmarkIcon />}
+              title="Saved Posts/Predictions:"
+            />
             <CardContent>
+                
             {props.prevPosts.map(res => {
           return (
             res.map(res => {
@@ -176,4 +196,6 @@ const mapStateToProps = (state) => {
   };
 };
 
+
 export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost })(Dashboard);
+

@@ -5,7 +5,9 @@ import {
   TextField,
   Button,
   Box,
+  Typography,
 } from "@material-ui/core";
+import "fontsource-roboto";
 import {
   container_style,
   smallcontainer_style,
@@ -33,6 +35,11 @@ const SignUp = (props) => {
     });
   }, [props.signUpForm]);
 
+  let history = useHistory();
+  const logIn = () => {
+    history.push("/login");
+  };
+
   return (
     <div>
       <div style={container_style}>
@@ -48,11 +55,12 @@ const SignUp = (props) => {
               e.preventDefault();
               await props.createUser(props.signUpForm);
               push("/login");
-            }}
-          >
-            <FormControl style={{ paddingTop: "33%" }}>
+            }}>
+            <FormControl style={{ paddingTop: "100%" }}>
               <FormGroup style={{ margin: "5px" }}>
-                <h1 style={{ margin: "10px" }}>Sign Up!</h1>
+                <Typography variant="h6" style={{ margin: "10px" }}>
+                  Sign Up!
+                </Typography>
                 <TextField
                   id="username"
                   name="username"
@@ -79,13 +87,18 @@ const SignUp = (props) => {
                 disabled={disable}
                 type="submit"
                 variant="contained"
-                color="primary"
-              >
+                color="primary">
                 Sign Up!
               </Button>
             </FormControl>
-            <Box style={{ margin: "10px" }}>Already a user?</Box>
-            <Button variant="contained" color="primary">
+            <Box style={{ margin: "10px", paddingLeft: "20%" }}>
+              <Typography>Already a user?</Typography>
+            </Box>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={logIn}
+              style={{ marginLeft: "30%" }}>
               Login!
             </Button>
           </form>

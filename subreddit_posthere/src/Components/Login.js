@@ -5,7 +5,9 @@ import {
   TextField,
   Button,
   Box,
+  Typography,
 } from "@material-ui/core";
+import "fontsource-roboto";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
@@ -33,6 +35,10 @@ const LogIn = (props) => {
     });
   }, [props.loginForm]);
 
+  let history = useHistory();
+  const signUp = () => {
+    history.push("/signup");
+  };
   return (
     <div>
       <div style={container_style}>
@@ -46,12 +52,14 @@ const LogIn = (props) => {
           <form
             onSubmit={async (e) => {
               await props.login(props.loginForm);
-               push("/dashboard");
-            }}
-          >
-            <FormControl style={{ paddingTop: "33%" }}>
+
+              push("/");
+            }}>
+            <FormControl style={{ paddingTop: "100%" }}>
               <FormGroup style={{ margin: "5px" }}>
-                <h1 style={{ margin: "10px" }}>Login</h1>
+                <Typography variant="h6" style={{ margin: "10px" }}>
+                  Login
+                </Typography>
                 <TextField
                   id="username"
                   name="username"
@@ -78,17 +86,18 @@ const LogIn = (props) => {
                 disabled={disable}
                 type="submit"
                 variant="contained"
-                color="primary"
-              >
+                color="primary">
                 Log In
               </Button>
             </FormControl>
-            <Box style={{ margin: "10px" }}>Not a user?</Box>
+            <Box style={{ margin: "10px", paddingLeft: "27%" }}>
+              <Typography>Not a user?</Typography>
+            </Box>
             <Button
-              onClick={() => push("/")}
+              onClick={signUp}
               variant="contained"
               color="primary"
-            >
+              style={{ marginLeft: "30%" }}>
               {" "}
               Signup!
             </Button>

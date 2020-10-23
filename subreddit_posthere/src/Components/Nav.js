@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import { connect } from 'react-redux'
-import {logout} from '../actions/subredditActions'
+import { connect } from "react-redux";
+import { logout } from "../actions/subredditActions";
 import {
   Header,
   NavWrapper,
@@ -37,34 +37,42 @@ const Nav = (props) => {
           <StyledNavLink exact to="/">
             Home
           </StyledNavLink>
-          <StyledNavLink exact to="/aboutUs">
+          <StyledNavLink exact to="/aboutus">
             About Us
           </StyledNavLink>
 
-          {props.isloggedIn && <StyledNavLink exact to="/dashboard">Dashboard</StyledNavLink>}
+          {props.isloggedIn && (
+            <StyledNavLink exact to="/dashboard">
+              Dashboard
+            </StyledNavLink>
+          )}
         </LinksWrapper>
         <ButtonWrapper>
           {props.isloggedIn === false ? (
             <>
-          <Button variant="contained" color="default" onClick={signUp}>
-            Sign Up
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={
-              logIn
-            }
-          >
-            Log In
-          </Button>
-          </> ) : ( false)}
-          {props.isloggedIn && 
-          <Button variant="contained" color="default" onClick={e=>{
-            e.preventDefault();
-            props.logout();
-            history.push("/login")
-          }}>Logout</Button>}
+              <Button variant="contained" color="default" onClick={signUp}>
+                Sign Up
+              </Button>
+              <Button variant="contained" color="primary" onClick={logIn}>
+                Log In
+              </Button>
+            </>
+          ) : (
+            false
+          )}
+          {props.isloggedIn && (
+            <Button
+              variant="contained"
+              color="default"
+              onClick={(e) => {
+                e.preventDefault();
+                props.logout();
+                history.push("/login");
+              }}
+            >
+              Logout
+            </Button>
+          )}
         </ButtonWrapper>
       </NavWrapper>
     </Header>
@@ -73,8 +81,7 @@ const Nav = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isloggedIn: state.isloggedIn
-  }
-}
-export default connect(mapStateToProps, {logout})(Nav)
-
+    isloggedIn: state.isloggedIn,
+  };
+};
+export default connect(mapStateToProps, { logout })(Nav);

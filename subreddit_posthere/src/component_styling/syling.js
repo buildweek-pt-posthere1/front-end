@@ -117,7 +117,16 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 11rem;
   display: flex;
   justify-content: space-between;
+
+  button:first-of-type {
+    &:first-child {
+      margin-right: 1rem;
+
+      @media (max-width: 1025px) {
+        margin-right: 0.5rem;
+      }
+    }
+  }
 `;
