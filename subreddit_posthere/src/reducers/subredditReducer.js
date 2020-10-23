@@ -8,7 +8,7 @@ import {
   FETCH_PREDICTION_FAIL,
   SUB_REDDIT_HANDLE_CHANGE,
   SUBMIT_POSTS_SUCCESS,
-  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS
+  SUBMIT_POSTS, FETCH_POSTS, FETCH_POSTS_SUCCESS, CLEAR_FORM, DELETE_POST
 } from "../actions/subredditActions";
 
 const initialState = {
@@ -26,7 +26,7 @@ const initialState = {
     isloggedIn: false,
   subRedPosts: {
     title: "",
-    post: "",
+    text: "",
   },
   prevPosts: [],
   is_loading_data: false,
@@ -75,18 +75,32 @@ export const subredditReducer = (state = initialState, action) => {
           [action.payload.target.name]: action.payload.target.value
         }
       }
+      case CLEAR_FORM: 
+      return{
+        ...state,
+        subRedPosts: {
+          title: "",
+          text: ""
+        }
+      }
       case SUBMIT_POSTS: {
         return{
           ...state,
+          subRedPosts: {title: "", text: ""}
         }
       }
       case SUBMIT_POSTS_SUCCESS:
         return {
           ...state,
           subRedPost: {       
-            post: '',
+            text: '',
           }
         }
+        case DELETE_POST:
+          return {
+            ...state,
+          
+          }
     case FETCH_POSTS: 
         return{
           ...state,
@@ -95,7 +109,7 @@ export const subredditReducer = (state = initialState, action) => {
     case FETCH_POSTS_SUCCESS: 
         return{ 
           ...state,
-          prevPosts: [...state.prevPosts, action.payload.data]
+          prevPosts: [action.payload]
         }
     case FETCH_PREDICTION:
       return {

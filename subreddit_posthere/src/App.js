@@ -21,8 +21,8 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
+          <PrivateRoute path="/Dashboard" component={Dashboard} />
           <Route path="/aboutus" component={AboutUs} />
-          <Route path="/Dashboard" component={Dashboard} />
           <Route exact path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
         </Switch>

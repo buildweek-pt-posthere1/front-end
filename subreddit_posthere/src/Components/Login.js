@@ -51,8 +51,8 @@ const LogIn = (props) => {
         <div style={smallcontainer_style}>
           <form
             onSubmit={async (e) => {
-              e.preventDefault();
               await props.login(props.loginForm);
+
               push("/");
             }}>
             <FormControl style={{ paddingTop: "100%" }}>

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
-import {
-  fetchPost,
-  fetchData,
-  submitPost,
-  handle_change_subRedditPost,
-} from "../actions/subredditActions";
+
+import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost } from "../actions/subredditActions";
+
 import { connect } from "react-redux";
 import { Body } from "../component_styling/syling";
 import {
@@ -27,22 +24,15 @@ import RedditIcon from "@material-ui/icons/Reddit";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import * as yup from "yup";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 const Dashboard = (props) => {
-  const [state, setState] = useState({
-    subPosts: [],
-  });
-  const [post, setPost] = useState({
-    title: "",
-    post: "",
-  });
-  const [savedPost, setSavedPost] = useState([]);
-
   const [disable, setDisable] = useState(false);
+  const {push} = useHistory()
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Title is a required field."),
-    post: yup.string().required("Content is a required field."),
+    text: yup.string().required("Content is a required field."),
   });
 
   useEffect(() => {
@@ -51,46 +41,13 @@ const Dashboard = (props) => {
     });
   }, [props.subRedPosts]);
 
-  const fetchPredict = (posts) => {
-    axios
-      .post(
-        "http://production-dev3.us-east-1.elasticbeanstalk.com/predict",
-        posts
-      )
-      .then((res) => console.log(res.data));
-  };
-
-  // const addPost = (title, post) => {
-  //   const newPost = { title: state.subPosts.title, post: state.subPosts.post };
-  //   setState({
-  //     subPosts: [...state.subPosts, { title: title, post: post }],
-  //   });
-  // };
-
-  // const handleChange = (e) => {
-  //   setPost({
-  //     ...post,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const submit = (e) => {
-  //   console.log(state)
-  //   e.preventDefault();
-  //   addPost(post.title, post.post);
-  // };
-
-  // const predictionSubmit = e => {
-  //   console.log(state)
-  //   e.preventDefault();
-  //   setPost(post.post)
-  // }
 
   useEffect(() => {
-    props.fetchPost();
-  }, [props.prevPosts]);
+    props.fetchPost(props.prevPosts)
+  },[])
 
-  console.log(props.prevPosts);
+console.log("where info is stored", props.prevPosts)
+
 
   return (
     <div>
@@ -117,9 +74,10 @@ const Dashboard = (props) => {
               rows={10}
               variant="outlined"
               label="Post"
-              name="post"
-              id="post"
-              value={props.subRedPosts.post}
+              name="text"
+              name="text"
+              id="text"
+              value={props.subRedPosts.text}
               onChange={props.handle_change_subRedditPost}
               style={{ margin: "10px" }}
               size="medium"
@@ -146,10 +104,15 @@ const Dashboard = (props) => {
               Save
               Post
               type="submit"
-              onClick={async (e) => {
+              disabled={disable}
+              onClick={async e => {
                 e.preventDefault();
-                await props.submitPost(props.subRedPosts);
-              }}></Button>
+                await props.submitPost(props.subRedPosts)
+                await props.fetchPost(props.subRedPosts)
+
+              }}>
+                Save Your post
+            </Button>
           </FormGroup>
         </FormControl>
       </Container>
@@ -193,6 +156,7 @@ const Dashboard = (props) => {
             </CardContent>
           </Card>
         </Container>
+        
         <Container style={{ borderLeft: "solid black 0.5px" }}>
           <Card>
             <CardHeader
@@ -200,14 +164,23 @@ const Dashboard = (props) => {
               title="Saved Posts/Predictions:"
             />
             <CardContent>
-              {state.subPosts.map((post) => {
-                return (
-                  <Card style={{ margin: "10px" }}>
-                    <CardHeader title={post.title} />
-                    <CardContent>{post.post}</CardContent>
-                  </Card>
-                );
-              })}
+                
+            {props.prevPosts.map(res => {
+          return (
+            res.map(res => {
+              return ( <>
+                <Card style={{margin:'10px'}}>
+                <CardHeader title={res.title} />
+                <CardContent>{res.text}</CardContent>
+               <button onClick={e => {
+                 e.preventDefault()
+                 props.deletePost(res.id)
+               }}
+               >x</button>
+              </Card>
+              </>) 
+            })
+)})}
             </CardContent>
           </Card>
         </Container>
@@ -223,9 +196,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  fetchPost,
-  fetchData,
-  submitPost,
-  handle_change_subRedditPost,
-})(Dashboard);
+
+export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost })(Dashboard);
+

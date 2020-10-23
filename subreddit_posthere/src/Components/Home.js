@@ -14,6 +14,7 @@ const Home = () => {
   };
 
   return (
+
     {
       /* All code in this file provided by: https://github.com/PeterPyro */
     },
@@ -35,6 +36,7 @@ const Home = () => {
             <Button variant="contained" color="primary" onClick={logIn}>
               Log In
             </Button>
+
           </div>
         </div>
       </div>
