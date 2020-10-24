@@ -108,7 +108,6 @@ console.log("where info is stored", props.prevPosts)
               }}>
                 Save Your post
             </Button>
-
           </FormGroup>
         </FormControl>
       </Container>
