@@ -43,10 +43,10 @@ export const createUser = (newUser) => (dispatch) => {
     });
 };
 
-export const fetchData = (posts) => (dispatch) => {
+export const fetchData = (text) => (dispatch) => {
   dispatch({ type: FETCH_PREDICTION });
   axiosWithAuth()
-    .post("http://easyreach-dev.us-east-1.elasticbeanstalk.com/predict", posts)
+    .post("http://easyreach-dev.us-east-1.elasticbeanstalk.com/predict", text)
     .then((res) => {
       dispatch({
         type: FETCH_PREDICTION_SUCCESS,
