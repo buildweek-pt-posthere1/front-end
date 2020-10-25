@@ -46,7 +46,7 @@ export const createUser = (newUser) => (dispatch) => {
 export const fetchData = (text) => (dispatch) => {
   dispatch({ type: FETCH_PREDICTION });
   axiosWithAuth()
-    .post("https://bw3-app.herokuapp.com/predict", text)
+    .post("http://easyreach-dev.us-east-1.elasticbeanstalk.com/predict", text)
     .then((res) => {
       dispatch({
         type: FETCH_PREDICTION_SUCCESS,
