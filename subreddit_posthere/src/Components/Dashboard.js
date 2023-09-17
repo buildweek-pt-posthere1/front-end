@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost } from "../actions/subredditActions";
+import {
+  fetchPost,
+  fetchData,
+  submitPost,
+  handle_change_subRedditPost,
+  clear_form,
+  deletePost,
+} from "../actions/subredditActions";
 import { connect } from "react-redux";
 import {
   FormControl,
@@ -23,7 +30,7 @@ import { useHistory } from "react-router";
 
 const Dashboard = (props) => {
   const [disable, setDisable] = useState(false);
-  let history = useHistory()
+  let history = useHistory();
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Title is a required field."),
@@ -36,20 +43,19 @@ const Dashboard = (props) => {
     });
   }, [props.subRedPosts]);
 
-
   useEffect(() => {
-    props.fetchPost(props.prevPosts)
-  },[])
+    props.fetchPost(props.prevPosts);
+  }, []);
 
-console.log("where info is stored", props.prevPosts)
-
+  console.log("where info is stored", props.prevPosts);
 
   return (
     <div>
       <Container style={{ display: "flex", justifyContent: "center" }}>
         <FormControl>
           <FormLabel
-            style={{ margin: "10px", textAlign: "center", color: "black" }}>
+            style={{ margin: "10px", textAlign: "center", color: "black" }}
+          >
             We'll predict which subreddit your post belongs!
           </FormLabel>
           <FormGroup>
@@ -70,7 +76,6 @@ console.log("where info is stored", props.prevPosts)
               variant="outlined"
               label="Post"
               name="text"
-              name="text"
               id="text"
               value={props.subRedPosts.text}
               onChange={props.handle_change_subRedditPost}
@@ -88,7 +93,8 @@ console.log("where info is stored", props.prevPosts)
               color="primary"
               endIcon={<SendIcon />}
               disabled={disable}
-              style={{ margin: "5px" }}>
+              style={{ margin: "5px" }}
+            >
               Predict your Subreddit!
             </Button>
             <Button
@@ -100,13 +106,13 @@ console.log("where info is stored", props.prevPosts)
               Post
               type="submit"
               disabled={disable}
-              onClick={async e => {
+              onClick={async (e) => {
                 e.preventDefault();
-                await props.submitPost(props.subRedPosts)
-                await props.fetchPost(props.subRedPosts)
-
-              }}>
-                Save Your post
+                await props.submitPost(props.subRedPosts);
+                await props.fetchPost(props.subRedPosts);
+              }}
+            >
+              Save Your post
             </Button>
           </FormGroup>
         </FormControl>
@@ -117,7 +123,8 @@ console.log("where info is stored", props.prevPosts)
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-evenly",
-        }}>
+        }}
+      >
         <Container>
           <Card>
             <CardHeader
@@ -151,32 +158,39 @@ console.log("where info is stored", props.prevPosts)
             </CardContent>
           </Card>
         </Container>
-        
+
         <Container style={{ borderLeft: "solid black 0.5px" }}>
           <Card>
             <CardHeader
               avatar={<BookmarkIcon />}
               title="Saved Posts/Predictions:"
-          />
+            />
             <CardContent>
-                
-            {props.prevPosts.map(res => {
-          return (
-            res.map(res => {
-              return ( <>
-            
-                <Card style={{margin:'10px'}}>
-                <CardHeader title={res.title} />
-                <CardContent>{res.text}</CardContent>
-                <CardContent>   <Button variant="contained" color="secondary" onClick={e => {
-                 e.preventDefault()
-                 props.deletePost(res.id)
-               }}
-               >Delete Post</Button></CardContent>
-              </Card>
-              </>) 
-            })
-)})}
+              {props.prevPosts.map((res) => {
+                return res.map((res) => {
+                  return (
+                    <>
+                      <Card style={{ margin: "10px" }}>
+                        <CardHeader title={res.title} />
+                        <CardContent>{res.text}</CardContent>
+                        <CardContent>
+                          {" "}
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              props.deletePost(res.id);
+                            }}
+                          >
+                            Delete Post
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </>
+                  );
+                });
+              })}
             </CardContent>
           </Card>
         </Container>
@@ -192,6 +206,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-
-export default connect(mapStateToProps, { fetchPost, fetchData, submitPost, handle_change_subRedditPost, clear_form, deletePost })(Dashboard);
-
+export default connect(mapStateToProps, {
+  fetchPost,
+  fetchData,
+  submitPost,
+  handle_change_subRedditPost,
+  clear_form,
+  deletePost,
+})(Dashboard);
