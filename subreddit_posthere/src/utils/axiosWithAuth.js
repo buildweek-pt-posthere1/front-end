@@ -7,7 +7,7 @@ export const axiosWithAuth = () => {
     headers: {
       Authorization: token,
     },
-    baseURL: "https://build-week4-backend.herokuapp.com/api/users",
+    baseURL: "https://buildweekbackend-0913e30342dc.herokuapp.com/api/users",
   });
 };
 
